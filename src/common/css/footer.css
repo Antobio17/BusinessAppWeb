@@ -1,0 +1,46 @@
+.footer {
+    background-color: #1c1f24;
+    bottom: 0;
+    color: white;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 40px;
+}
+
+.footer-message {
+    margin-bottom: 50px;
+}
+
+.footer .section-business-info,
+.footer .section-developing-info,
+.footer .section-message {
+    padding: 2rem 6rem;
+}
+
+.footer .section-business-info p {
+    margin: 0;
+}
+
+.footer .section-business-info .business-name {
+    font-family: 'Raleway-Bold', Helvetica, monospace;
+}
+
+.footer .section-developing-info .social-networks {
+    max-width: 250px;
+}
+
+
+.footer .section-message p {
+    font-family: 'Raleway-Black', Helvetica, monospace;
+    margin: 0;
+}
+
+.footer .section-business-info .business-name,
+.footer .section-message p {
+    font-size: 1.7rem;
+}
+
+.footer .section-business-info p,
+.footer .section-developing-info p {
+    font-size: 1.2rem;
+}
