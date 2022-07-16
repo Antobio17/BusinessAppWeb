@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+// noinspection ES6CheckImport
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+
+import {AnimatePresence} from 'framer-motion';
+
 import './App.css';
 
+export const webDomain = (window.location.hostname).replace('www.', '');
+export const webServiceURL = process.env.REACT_APP_BUSINESS_APP_WS_URL;
+export const pageVariants = {
+    initial: {opacity: 0, x: "-100vw", scale: 0.8},
+    in: {opacity: 1, x: 0, scale: 1},
+    out: {opacity: 0, x: "100vw", scale: 1.2}
+};
+export const pageTransition = {
+    type: "tween",
+    ease: "anticipate",
+    duration: 0.5
+};
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <AnimatePresence exitBeforeEnter>
+                <Router>
+                    <Routes>
+
+                    </Routes>
+                </Router>
+            </AnimatePresence>
+        </>
+    );
 }
 
 export default App;
