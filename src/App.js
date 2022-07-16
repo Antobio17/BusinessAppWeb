@@ -3,6 +3,8 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import {AnimatePresence} from 'framer-motion';
 
+import Footer from './common/Footer';
+
 import './App.css';
 
 export const webDomain = (window.location.hostname).replace('www.', '');
@@ -28,6 +30,7 @@ function App() {
                     </Routes>
                 </Router>
             </AnimatePresence>
+            <Footer/>
         </>
     );
 }
