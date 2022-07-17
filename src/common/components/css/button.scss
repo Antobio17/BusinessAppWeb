@@ -1,0 +1,22 @@
+.custom-btn {
+  padding: 9px 25px;
+  border-radius: 30px;
+  outline: none;
+  font-size: 18px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.2s ease-out;
+  text-decoration: none;
+  align-self: center;
+  display: block;
+}
+
+.custom-btn:hover {
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  transition: all 0.2s ease-out;
+  box-shadow: 0 0 5px 3px rgb(79, 98, 189, 0.6);
+}

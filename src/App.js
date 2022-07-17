@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import {AnimatePresence} from 'framer-motion';
 
+import Header from './common/Header';
 import Footer from './common/Footer';
 
 import './App.css';
@@ -25,8 +26,8 @@ function App() {
         <>
             <AnimatePresence exitBeforeEnter>
                 <Router>
+                    <Header/>
                     <Routes>
-
                     </Routes>
                 </Router>
             </AnimatePresence>

@@ -41,7 +41,7 @@
 }
 
 :root {
-  --primary: rgb(67, 86, 180);
+  --primary: rgb(79, 98, 189);
   --secondary: #1c1f24;
 }
 
@@ -52,16 +52,11 @@ body {
   background: #1c1f24;
 }
 
+* {
+  font-family: 'Raleway-Light', Helvetica, monospace;
+}
+
 input:-webkit-autofill{
   -webkit-text-fill-color: white;
   -webkit-box-shadow: 0 0 0 1000px #1c1f24 inset;
-}
-
-.btn {
-  padding: 8px 20px;
-}
-
-.btn-primary:focus {
-  background: var(--primary) !important;
-  box-shadow: 0 0 0 0.25rem rgba(67, 86, 180, 0.5) !important;
 }
