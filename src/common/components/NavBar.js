@@ -70,7 +70,7 @@ function NavBar(props) {
             </React.Fragment>
             <nav className='navbar'>
                 <Link to='/' className='navbar-logo'>
-                    <img src={logoSrc} alt='Logo' title='Logo' width="70px" height="65px"/>
+                    <img src={logoSrc} alt='Logo' title='Logo' width="73px" height="70px"/>
                 </Link>
                 <div className='menu-icon' onClick={toggleDrawer(anchor, true)}>
                     <i className={'text-white ' + (click ? 'fas fa-times' : 'fas fa-bars')}/>

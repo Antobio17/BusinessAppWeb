@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {webServiceURL} from "../App";
 import axios from "axios";
-import './css/footer.css';
 import { SocialIcon } from 'react-social-icons';
 
+import './css/footer.css';
 
 function Footer() {
     const [businessName, setBusinessName] = useState(process.env.REACT_APP_CONFIG_WEBSITE_BUSINESS_NAME);
