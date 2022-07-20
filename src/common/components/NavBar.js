@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
@@ -7,15 +7,16 @@ import Drawer from '@material-ui/core/Drawer';
 import './css/navbar.scss';
 
 import NavMenu from './NavMenu';
-import axios from "axios";
-import {webServiceURL} from "../../App";
+import {businessName} from "../../App";
+
 
 const useStyles = makeStyles({list: {width: 250}, fullList: {width: 'auto'}});
 
 function NavBar(props) {
     const [click, setClick] = useState(false);
-    const [logoSrc, setLogoSrc] = useState(process.env.REACT_APP_CONFIG_WEBSITE_BUSINESS_LOGO_SRC);
     const [isLoggedIn] = useState(false);
+
+    const logoSrc = process.env.REACT_APP_CONFIG_WEBSITE_BUSINESS_LOGO_SRC;
 
     const handleClick = () => setClick(!click);
 
@@ -48,19 +49,6 @@ function NavBar(props) {
         </div>
     );
 
-    async function getHeaderData() {
-        await axios.post(
-            webServiceURL + '/api/business/get/data/header',
-            {params: {}}
-        ).then(response => {
-            const data = response.data.data;
-        });
-    }
-
-    useEffect(() => {
-
-    }, []);
-
     return (
         <>
             <React.Fragment key={anchor}>
@@ -68,12 +56,15 @@ function NavBar(props) {
                     {list(anchor)}
                 </Drawer>
             </React.Fragment>
-            <nav className='navbar'>
-                <Link to='/' className='navbar-logo'>
-                    <img src={logoSrc} alt='Logo' title='Logo' width="73px" height="70px"/>
+            <nav className="navbar">
+                <Link to="/" className="navbar-logo">
+                    {logoSrc !== undefined ?
+                        <img src={logoSrc} alt="Logo" title="Logo" width="73px" height="70px"/> :
+                        <>{businessName}</>
+                    }
                 </Link>
-                <div className='menu-icon' onClick={toggleDrawer(anchor, true)}>
-                    <i className={'text-white ' + (click ? 'fas fa-times' : 'fas fa-bars')}/>
+                <div className="menu-icon" onClick={toggleDrawer(anchor, true)}>
+                    <i className={"text-white " + (click ? "fas fa-times" : "fas fa-bars")}/>
                 </div>
                 <NavMenu isLoggedIn={props.isLoggedIn}/>
             </nav>

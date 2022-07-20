@@ -1,35 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {webServiceURL} from "../App";
-import axios from "axios";
-import { SocialIcon } from 'react-social-icons';
+import React from 'react';
+import {businessName} from "../App";
+import {SocialIcon} from 'react-social-icons';
 
 import './css/footer.css';
 
 function Footer() {
-    const [businessName, setBusinessName] = useState(process.env.REACT_APP_CONFIG_WEBSITE_BUSINESS_NAME);
-    const [address, setAddress] = useState(process.env.REACT_APP_CONFIG_WEBSITE_FOOTER_ADDRESS);
-    const [phoneNumber, setPhoneNumber] = useState(process.env.REACT_APP_CONFIG_WEBSITE_FOOTER_PHONE_NUMBER);
-
-    async function getFooterData() {
-        await axios.post(
-            webServiceURL + '/api/business/get/data/footer',
-            {params: {}}
-        ).then(response => {
-            const data = response.data.data;
-        });
-    }
-
-    useEffect(() => {
-
-    }, []);
+    const address = process.env.REACT_APP_CONFIG_WEBSITE_FOOTER_ADDRESS;
+    const phoneNumber = process.env.REACT_APP_CONFIG_WEBSITE_FOOTER_PHONE_NUMBER;
 
     return (
         <footer className="footer row align-items-center">
-            { businessName !== undefined && address !== undefined && phoneNumber !== undefined &&
+            {businessName !== undefined && address !== undefined && phoneNumber !== undefined &&
             <section className="col-12 col-lg-4 text-center text-lg-start section-business-info">
-                <p className="business-name">{ businessName }</p>
-                <p>{ address }</p>
-                <p>{ phoneNumber }</p>
+                <p className="business-name">{businessName}</p>
+                <p>{address}</p>
+                <p>{phoneNumber}</p>
             </section>
             }
             <section
@@ -39,10 +24,9 @@ function Footer() {
                 <div
                     className="row justify-content-between align-content-center m-auto m-md-0 m-lg-auto social-networks"
                 >
-                    <SocialIcon url="https://www.instagram.com/antobio17/?hl=es" />
                     <SocialIcon url="https://github.com/Antobio17" bgColor="white"/>
-                    <SocialIcon url="https://t,me/antobio17" network="telegram" />
-                    <SocialIcon url="https://www.linkedin.com/in/antonio-jim%C3%A9nez-rodr%C3%ADguez-098aa8205/" />
+                    <SocialIcon url="https://t.me/antobio17" network="telegram"/>
+                    <SocialIcon url="https://www.linkedin.com/in/antonio-jim%C3%A9nez-rodr%C3%ADguez-098aa8205/"/>
                 </div>
             </section>
             <section className="col-12 col-md-6 col-lg-4 text-center text-md-end section-message">
