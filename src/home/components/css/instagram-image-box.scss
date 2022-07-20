@@ -1,0 +1,26 @@
+.instagram-image-box {
+  text-align: center;
+  width: 300px !important;
+  margin: 40px 20px;
+  padding: 0 !important;
+
+  img {
+    border: 1px #1c1f24 solid;
+    box-shadow: 0 0 10px #1c1f24;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+
+    &:hover {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+}
+
+@media only screen and (max-width: 671px) {
+  .instagram-image-box {
+    margin: 40px 0;
+  }
+}
