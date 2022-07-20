@@ -1,0 +1,21 @@
+.service-box {
+  padding: 1rem;
+  border-radius: 30px;
+  border: 5px solid #222222;
+  width: 300px;
+  display: block;
+  text-align: center;
+
+  section {
+    margin: 1.5rem;
+  }
+
+  .service-box-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  .service-box-description {
+    text-align: justify;
+  }
+}
