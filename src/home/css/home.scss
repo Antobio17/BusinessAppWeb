@@ -1,0 +1,169 @@
+.home {
+  .section-business-services,
+  .section-images,
+  .section-business-contact,
+  .section-store-info {
+    padding: 7rem 5rem;
+    width: 100%;
+  }
+
+  .section-presentation {
+    width: 100%;
+    padding: 7rem 5rem;
+    align-items: center;
+
+    img {
+      filter: drop-shadow(0 2px 5px rgb(14, 14, 14));
+    }
+
+    .presentation-container {
+      margin: auto;
+      padding: 0 6rem;
+
+      .title {
+        font-weight: bold;
+        font-size: xx-large;
+        font-family: "Raleway-MediumItalic", monospace;
+      }
+
+      .presentation {
+        font-size: large;
+        font-family: "Raleway-Italic", monospace;
+      }
+    }
+  }
+
+  .section-images {
+    background: #1c1f24;
+
+    .images-container {
+      max-width: 1020px;
+      margin: auto;
+    }
+  }
+
+  .section-business-services {
+    .services-title {
+      text-align: center;
+
+      span {
+        font-family: 'Raleway-Black', Helvetica, monospace;
+        font-size: 3rem;
+      }
+    }
+
+    .services-container {
+      padding: 7rem 5rem 3rem;
+    }
+  }
+
+  .section-business-contact {
+    background: #1c1f24;
+    color: #FFFFFF;
+    text-align: center;
+
+    .contact-title {
+      margin-bottom: 40px;
+
+      span {
+        font-family: 'Raleway-MediumItalic', Helvetica, monospace;
+        font-size: 3rem;
+      }
+    }
+
+    .contact-container {
+      display: grid;
+      font-size: 1.5rem;
+    }
+  }
+
+  .section-store-info {
+    margin: 0;
+    padding: 10rem 5rem;
+    align-items: center;
+
+    .store-info-img {
+      padding: 0 2rem 0 0;
+    }
+
+    .store-info-container {
+      padding: 0 8rem 0 2rem;
+
+      .store-info-title {
+        text-align: center;
+
+        span {
+          font-family: 'Raleway-MediumItalic', Helvetica, monospace;
+          font-size: 2rem;
+          font-weight: bold;
+        }
+      }
+
+      .store-info-description {
+        font-size: 1.5rem;
+        margin: 20px;
+        text-align: justify;
+
+        .store-info-link {
+          text-decoration: none;
+          color: #222222;
+
+          &:hover {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .section-presentation {
+    .presentation-container {
+      padding: 1rem !important;
+    }
+  }
+
+  .section-store-info {
+    .store-info-container {
+      padding: 0 2rem !important;
+    }
+
+    .store-info-img {
+      padding: 0;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .home {
+    .section-images {
+      .images-container {
+        max-width: 680px;
+        margin: auto;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 671px) {
+  .home {
+    .section-images {
+      .images-container {
+        max-width: 300px;
+        margin: auto;
+      }
+    }
+
+    .section-business-services {
+      .services-container {
+        padding: 7rem 0 3rem;
+      }
+    }
+
+    .section-store-info {
+      padding: 10rem 2rem;
+    }
+  }
+}
