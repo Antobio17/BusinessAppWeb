@@ -16,20 +16,20 @@ import {Link} from "react-router-dom";
 
 function HomePage() {
     const [loading, setLoading] = useState(true);
-    const [presentationData, setPresentationData] = useState(undefined);
+    const [introData, setIntroData] = useState(undefined);
     const [servicesData, setServicesData] = useState(undefined);
-    const [images, setImages] = useState(undefined);
+    const [socialData, setSocialData] = useState(undefined);
     const [contactData, setContactData] = useState(undefined);
 
     async function getHomeData() {
         await axios.post(
-            webServiceURL + '/api/business/get/data/home',
+            webServiceURL + '/api/business/config/home/get',
             {params: {}}
         ).then(response => {
             const data = response.data.data;
-            setPresentationData('presentation' in data ? data.presentation : undefined);
+            setIntroData('intro' in data ? data.intro : undefined);
             setServicesData('services' in data ? data.services : undefined);
-            setImages('images' in data ? data.images : undefined);
+            setSocialData('social' in data ? data.social : undefined);
             setContactData('contact' in data ? data.contact : undefined);
             setLoading(false);
         });
@@ -37,9 +37,9 @@ function HomePage() {
 
     useEffect(() => {
         if (
-            presentationData === undefined
+            introData === undefined
             || servicesData === undefined
-            || images === undefined
+            || socialData === undefined
             || contactData === undefined
         ) {
             getHomeData().then().catch(error => {
@@ -62,14 +62,14 @@ function HomePage() {
                             <section className="row section-presentation">
                                 <div className="col-12 col-md-4 col-lg-3 text-center">
                                     <img
-                                        src={webServiceURL + '/images/' + presentationData.image}
-                                        alt={presentationData.bossName} width="300" height="300"
+                                        src={webServiceURL + '/images/' + introData.imageSrc}
+                                        alt={introData.bossName} width="300" height="300"
                                     />
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-9 mt-5  mt-md-auto presentation-container">
-                                    <span className="title">¿Quién es {presentationData.bossName}?</span>
+                                    <span className="title">¿Quién es {introData.bossName}?</span>
                                     <p className="presentation">
-                                        {presentationData.text}
+                                        {introData.description}
                                     </p>
                                 </div>
                             </section>
@@ -79,9 +79,9 @@ function HomePage() {
                                 </div>
                                 <div className="images-container row">
                                     {
-                                        Object.keys(images).map((key) => (
+                                        Object.keys(socialData.images).map((key) => (
                                             <InstagramImageBox
-                                                src={webServiceURL + '/images/' + images[key]}
+                                                src={webServiceURL + '/images/' + socialData.images[key]}
                                                 alt="Imagen Instagram"
                                                 width="300" height="300"
                                             />
@@ -114,7 +114,14 @@ function HomePage() {
                                 </div>
                                 <div className="contact-container">
                                     <span><strong>Dirección:</strong> {contactData.address}</span>
-                                    <span><strong>Horario:</strong> {contactData.opens} a {contactData.closes}</span>
+                                    <span>
+                                        <strong>Horario: </strong>
+                                        {Object.keys(contactData.businessHours).map((key) => (
+                                            <span className="m-1">
+                                                {contactData.businessHours[key].opensAt} a {contactData.businessHours[key].closesAt} |
+                                            </span>
+                                        ))}
+                                    </span>
                                     {'email' in contactData &&
                                     <span><strong>Email:</strong> {contactData.email}</span>
                                     }
