@@ -6,6 +6,7 @@ import './css/products-section.scss'
 
 import Product from './Product';
 import {webServiceURL} from "../../App";
+import ReactPaginate from "react-paginate";
 
 function ProductsSection(props) {
 
@@ -27,6 +28,13 @@ function ProductsSection(props) {
                     No se ha encontrado ningún articulo <SentimentDissatisfiedIcon/>
                 </h4>
             }
+            <ReactPaginate
+                previousLabel={"Anterior"} nextLabel={"Siguiente"} pageCount={props.page}
+                onPageChange={props.onChangePage} containerClassName={"products-pagination"}
+                disabledClassName={"pagination-disabled-button"} activeClassName={"pagination-active"}
+                previousLinkClassName={"pagination-previous-button"}
+                nextLinkClassName={"pagination-next-button"}
+            />
         </section>
     );
 }

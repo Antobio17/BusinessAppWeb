@@ -40,7 +40,7 @@ function FiltersSection(props) {
                             transition={pageTransition} className="row categories-container">
                     <span className="filter-title fw-bold">CATEGORÍAS</span>
                     {props.categories.map(category => (
-                        <FormControlLabel labelPlacement="start" label={category.name} control={
+                        <FormControlLabel key={category.id} labelPlacement="start" label={category.name} control={
                             <Checkbox defaultChecked color="primary"
                                       onChange={
                                           (e) => props.onChangeOutOfStock(e.target.checked)

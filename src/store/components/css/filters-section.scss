@@ -2,6 +2,7 @@
   text-align: right;
   margin: auto 0 auto auto;
   max-width: 400px;
+  padding-right: 45px;
 
   .title {
     font-family: 'Raleway-Medium', monospace;
@@ -53,5 +54,37 @@
 
   .MuiFormControlLabel-label {
     font-family: 'Raleway-Light', Helvetica, monospace;
+  }
+}
+
+@media only screen and (max-width: 1650px) {
+  .section-filters {
+    margin: auto;
+    padding-right: 0;
+  }
+}
+
+@media only screen and (max-width: 1550px) {
+  .section-filters {
+    margin: auto auto auto 0;
+    padding-left: 45px;
+  }
+}
+
+@media only screen and (max-width: 1477px) {
+  .section-filters {
+    margin: auto 0 auto auto;
+    padding-right: 45px;
+  }
+}
+
+@media only screen and (max-width: 1049px) {
+  .section-filters {
+    text-align: center;
+    margin: auto;
+
+    .MuiFormControlLabel-root {
+      justify-content: center;
+    }
   }
 }
