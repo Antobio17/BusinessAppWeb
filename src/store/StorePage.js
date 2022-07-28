@@ -2,7 +2,6 @@ import {pageTransition, pageVariants, webServiceURL} from "../App";
 import React, {useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
 
 import './css/store.scss';
 
@@ -54,7 +53,6 @@ function StorePage() {
     const onChangeOutOfStock = (selected) => {setOutOfStock(selected);}
 
     useEffect(() => {
-        console.log('a');
         if (products === undefined) {
             getProductsData().then().catch(error => {
                 console.log('Error al recuperar los productos: ' + error);
@@ -81,7 +79,7 @@ function StorePage() {
                 </section>
                 {loading ? <Loading/> : (
                     <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
-                                transition={pageTransition} className="row">
+                                transition={pageTransition} className="row sections-container">
                         <section className="col-12 col-lg-4">
                             <FiltersSection
                                 sort={sort}
@@ -92,14 +90,7 @@ function StorePage() {
                             />
                         </section>
                         <section className="col-12 col-lg-8">
-                            <ProductsSection products={products}/>
-                            <ReactPaginate
-                                previousLabel={"Anterior"} nextLabel={"Siguiente"} pageCount={page}
-                                onPageChange={onChangePage} containerClassName={"products-pagination"}
-                                disabledClassName={"pagination-disabled-button"} activeClassName={"pagination-active"}
-                                previousLinkClassName={"pagination-previous-button"}
-                                nextLinkClassName={"pagination-next-button"}
-                            />
+                            <ProductsSection products={products} page={page} onChangePage={onChangePage}/>
                         </section>
                     </motion.div>
                 )}
