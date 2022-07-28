@@ -16,9 +16,9 @@ function FiltersSection(props) {
                     value={props.sort}
                     onChange={(e) => props.onChangeSortMode(e.target.value)}
                 >
-                    <option value="default">Más recientes</option>
-                    <option value="lowest">Más baratos</option>
-                    <option value="highest">Más caros</option>
+                    <option value="moreRecent">Más recientes</option>
+                    <option value="lowestPrice">Más baratos</option>
+                    <option value="highestPrice">Más caros</option>
                 </select>
             </section>
             <section className="filters-availability">
@@ -43,7 +43,9 @@ function FiltersSection(props) {
                         <FormControlLabel key={category.id} labelPlacement="start" label={category.name} control={
                             <Checkbox defaultChecked color="primary"
                                       onChange={
-                                          (e) => props.onChangeOutOfStock(e.target.checked)
+                                          (e) => props.onChangeCategoriesSelection(
+                                              e.target.checked, category.id
+                                          )
                                       }
                             />
                         }/>
