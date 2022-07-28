@@ -5,6 +5,7 @@ import {AnimatePresence} from 'framer-motion';
 
 import Header from './common/Header';
 import HomePage from './home/HomePage';
+import StorePage from './store/StorePage';
 import Footer from './common/Footer';
 
 import './App.css';
@@ -32,6 +33,7 @@ function App() {
                     <Header/>
                     <Routes>
                         <Route exact path="/" element={<HomePage/>}/>
+                        <Route exact path="/tienda" element={<StorePage/>}/>
                     </Routes>
                 </Router>
             </AnimatePresence>
