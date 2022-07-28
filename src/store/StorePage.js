@@ -21,12 +21,17 @@ function StorePage() {
     const [sort, setSort] = useState(undefined);
     const [onStock, setOnStock] = useState(true);
     const [outOfStock, setOutOfStock] = useState(true);
+    const [categoryExclusion, setCategoryExclusion] = useState({});
 
 
     async function getProductsData() {
         const params = {
             offset: (page - 1) * limit,
-            limit: limit
+            limit: limit,
+            sort: sort,
+            onStock: onStock,
+            outOfStock: outOfStock,
+            categoryExclusion: categoryExclusion,
         };
 
         await axios.post(webServiceURL + '/api/store/product/get', params, {
@@ -47,24 +52,38 @@ function StorePage() {
         });
     }
 
-    const onChangePage = ({selected}) => {setPage(selected);}
-    const onChangeSortMode = (selected) => {setSort(selected);}
-    const onChangeOnStock = (selected) => {setOnStock(selected);}
-    const onChangeOutOfStock = (selected) => {setOutOfStock(selected);}
+    const onChangePage = ({selected}) => {
+        setPage(selected);
+    }
+    const onChangeSortMode = (selected) => {
+        setSort(selected);
+    }
+    const onChangeOnStock = (selected) => {
+        setOnStock(selected);
+    }
+    const onChangeOutOfStock = (selected) => {
+        setOutOfStock(selected);
+    }
+    const onChangeCategoriesSelection = (selected, categoryID) => {
+        if (selected && categoryExclusion.hasOwnProperty(categoryID)) {
+            delete categoryExclusion[categoryID];
+        } else {
+            categoryExclusion[categoryID] = selected;
+        }
+        setCategoryExclusion(categoryExclusion);
+    }
 
     useEffect(() => {
-        if (products === undefined) {
-            getProductsData().then().catch(error => {
-                console.log('Error al recuperar los productos: ' + error);
-            });
-        }
+        getProductsData().then().catch(error => {
+            console.log('Error al recuperar los productos: ' + error);
+        });
 
         if (categories === undefined) {
             getCategoriesData().then().catch(error => {
                 console.log('Error al recuperar las categorías: ' + error);
             });
         }
-    }, [sort, products, page]);
+    }, [sort, page, onStock, outOfStock, categoryExclusion]);
 
     // noinspection JSUnresolvedVariable
     return (
@@ -86,6 +105,7 @@ function StorePage() {
                                 onChangeSortMode={onChangeSortMode}
                                 onChangeOnStock={onChangeOnStock}
                                 onChangeOutOfStock={onChangeOutOfStock}
+                                onChangeCategoriesSelection={onChangeCategoriesSelection}
                                 categories={categories}
                             />
                         </section>
