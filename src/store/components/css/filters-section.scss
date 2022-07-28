@@ -1,0 +1,57 @@
+.section-filters {
+  text-align: right;
+  margin: auto 0 auto auto;
+  max-width: 400px;
+
+  .title {
+    font-family: 'Raleway-Medium', monospace;
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+
+  .filters-categories,
+  .filters-availability,
+  .filters-sort {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    display: grid;
+
+    .filter-title {
+      font-size: 1.1rem;
+      border-top: 1px solid #222222;
+      padding-top: 25px;
+    }
+  }
+
+  .filters-sort {
+    select {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 5px;
+      border: 1px #f1f1f1 solid;
+      background-color: #f1f1f1;
+      color: #222222;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+  }
+
+  .filters-categories {
+    .filter-title {
+      padding-right: 0;
+    }
+
+    .MuiFormControlLabel-root {
+      padding-right: 5px;
+    }
+
+    .categories-container {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .MuiFormControlLabel-label {
+    font-family: 'Raleway-Light', Helvetica, monospace;
+  }
+}
