@@ -11,12 +11,12 @@
   text-decoration: none;
   align-self: center;
   display: block;
-}
 
-.custom-btn:hover {
-  color: #ffffff;
-  border: 1px solid var(--primary);
-  background: var(--primary);
-  transition: all 0.2s ease-out;
-  box-shadow: 0 0 5px 3px rgb(79, 98, 189, 0.6);
+  &:hover {
+    color: #ffffff;
+    border: 1px solid var(--primary);
+    background: var(--primary);
+    transition: all 0.2s ease-out;
+    box-shadow: 0 0 5px 3px rgb(79, 98, 189, 0.6);
+  }
 }
