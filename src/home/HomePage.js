@@ -1,8 +1,8 @@
-import {pageTransition, pageVariants, webServiceURL, businessName} from "../App";
 import React, {useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import axios from "axios";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import {Link} from "react-router-dom";
 
 import './css/home.scss';
 
@@ -11,8 +11,8 @@ import InstagramHeader from './components/InstagramHeader';
 import InstagramImageBox from './components/InstagramImageBox';
 import ServiceBox from './components/ServiceBox';
 
+import {pageTransition, pageVariants, webServiceURL, businessName} from "../App";
 import ShoppingCart from '../assets/images/shopping-cart.png';
-import {Link} from "react-router-dom";
 
 function HomePage() {
     const [loading, setLoading] = useState(true);
@@ -73,7 +73,7 @@ function HomePage() {
                             <div className="row">
                                 <InstagramHeader/>
                             </div>
-                            <div className="images-container row">
+                            <div className="row images-container">
                                 {
                                     Object.keys(socialData.images).map((key) => (
                                         <InstagramImageBox
