@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {motion} from "framer-motion";
-import axios from "axios";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {Link} from "react-router-dom";
 
@@ -13,6 +12,7 @@ import ServiceBox from './components/ServiceBox';
 
 import {pageTransition, pageVariants, webServiceURL, businessName} from "../App";
 import ShoppingCart from '../assets/images/shopping-cart.png';
+import {getHomeData} from "../services/home";
 
 function HomePage() {
     const [loading, setLoading] = useState(true);
@@ -21,20 +21,6 @@ function HomePage() {
     const [socialData, setSocialData] = useState(undefined);
     const [contactData, setContactData] = useState(undefined);
 
-    async function getHomeData() {
-        await axios.post(
-            webServiceURL + '/api/business/config/home/get',
-            {params: {}}
-        ).then(response => {
-            const data = response.data.data;
-            setIntroData('intro' in data ? data.intro : undefined);
-            setServicesData('services' in data ? data.services : undefined);
-            setSocialData('social' in data ? data.social : undefined);
-            setContactData('contact' in data ? data.contact : undefined);
-            setLoading(false);
-        });
-    }
-
     useEffect(() => {
         if (
             introData === undefined
@@ -42,7 +28,16 @@ function HomePage() {
             || socialData === undefined
             || contactData === undefined
         ) {
-            getHomeData().then().catch(error => {
+            Promise.all([
+                getHomeData()
+            ]).then(response => {
+                const data = response.length > 0 ? response[0] : [];
+                setIntroData('intro' in data ? data.intro : undefined);
+                setServicesData('services' in data ? data.services : undefined);
+                setSocialData('social' in data ? data.social : undefined);
+                setContactData('contact' in data ? data.contact : undefined);
+                setLoading(false);
+            }).catch(error => {
                 console.log('Error al recuperar los artículos: ' + error);
             });
         }
