@@ -7,7 +7,6 @@ import './css/store.scss';
 import Loading from '../common/components/Loading';
 import ProductsSection from './components/ProductsSection';
 import FiltersSection from './components/FiltersSection';
-
 import {getProductsData, getCategoriesData} from "../services/store";
 
 function StorePage() {
