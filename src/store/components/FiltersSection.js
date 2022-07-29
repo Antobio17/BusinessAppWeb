@@ -44,7 +44,7 @@ function FiltersSection(props) {
                             <Checkbox defaultChecked color="primary"
                                       onChange={
                                           (e) => props.onChangeCategoriesSelection(
-                                              e.target.checked, category.id
+                                              e.target.checked, category.id, category.name
                                           )
                                       }
                             />
