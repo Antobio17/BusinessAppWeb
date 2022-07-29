@@ -29,7 +29,7 @@ function ProductsSection(props) {
                 </h4>
             }
             <ReactPaginate
-                previousLabel={"Anterior"} nextLabel={"Siguiente"} pageCount={props.page}
+                previousLabel={"Anterior"} nextLabel={"Siguiente"} pageCount={props.pageCount}
                 onPageChange={props.onChangePage} containerClassName={"products-pagination"}
                 disabledClassName={"pagination-disabled-button"} activeClassName={"pagination-active"}
                 previousLinkClassName={"pagination-previous-button"}

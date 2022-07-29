@@ -13,21 +13,23 @@ function StorePage() {
     const limit = 9;
 
     const [loading, setLoading] = useState(true);
-    const [products, setProducts] = useState(undefined);
+    const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState(undefined);
-    const [page, setPage] = useState(1);
 
-    // States for filtering
+    // Filtering
     const [sort, setSort] = useState(undefined);
     const [onStock, setOnStock] = useState(true);
     const [outOfStock, setOutOfStock] = useState(true);
+    const [changeCategories, setChangeCategories] = useState(false);
     const [categoryExclusion, setCategoryExclusion] = useState({});
 
+    // Products Pagination
+    const [page, setPage] = useState(0);
+    const offset = page * limit;
+    const displayItems = products.slice(offset, offset + limit);
 
     async function getProductsData() {
         const params = {
-            offset: (page - 1) * limit,
-            limit: limit,
             sort: sort,
             onStock: onStock,
             outOfStock: outOfStock,
@@ -64,16 +66,18 @@ function StorePage() {
     const onChangeOutOfStock = (selected) => {
         setOutOfStock(selected);
     }
-    const onChangeCategoriesSelection = (selected, categoryID) => {
-        if (selected && categoryExclusion.hasOwnProperty(categoryID)) {
-            delete categoryExclusion[categoryID];
+    const onChangeCategoriesSelection = (selected, categoryID, categoryName) => {
+        if (selected && categoryExclusion.hasOwnProperty(categoryName)) {
+            delete categoryExclusion[categoryName];
         } else {
-            categoryExclusion[categoryID] = selected;
+            categoryExclusion[categoryName] = categoryID;
         }
         setCategoryExclusion(categoryExclusion);
+        setChangeCategories(!changeCategories);
     }
 
     useEffect(() => {
+        setPage(0);
         getProductsData().then().catch(error => {
             console.log('Error al recuperar los productos: ' + error);
         });
@@ -83,7 +87,7 @@ function StorePage() {
                 console.log('Error al recuperar las categorías: ' + error);
             });
         }
-    }, [sort, page, onStock, outOfStock, categoryExclusion]);
+    }, [sort, onStock, outOfStock, changeCategories]);
 
     // noinspection JSUnresolvedVariable
     return (
@@ -110,7 +114,9 @@ function StorePage() {
                             />
                         </section>
                         <section className="col-12 col-lg-8">
-                            <ProductsSection products={products} page={page} onChangePage={onChangePage}/>
+                            <ProductsSection products={displayItems} page={page}
+                                             pageCount={Math.ceil(products.length/limit)}
+                                             onChangePage={onChangePage}/>
                         </section>
                     </motion.div>
                 )}
