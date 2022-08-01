@@ -5,7 +5,6 @@ import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
 import './css/products-section.scss'
 
 import Product from './Product';
-import {webServiceURL} from "../../App";
 import ReactPaginate from "react-paginate";
 
 function ProductsSection(props) {
@@ -17,10 +16,8 @@ function ProductsSection(props) {
                     {props.products.map(product => (
                         <Product
                             key={product.id}
-                            name={product.name}
-                            src={webServiceURL + '/images/' +product.src}
-                            amount={product.amount}
-                            stock={product.stock}
+                            product={product}
+                            addToCart={props.addToCart}
                         />
                     ))}
                 </> :

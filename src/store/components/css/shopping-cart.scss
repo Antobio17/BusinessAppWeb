@@ -1,0 +1,20 @@
+.shopping-cart-button {
+  margin: 20px auto 40px;
+  text-align: center;
+
+  .custom-btn {
+    margin: auto;
+    color: #222222;
+    border-color: #222222;
+
+    &:hover {
+      color: white;
+      border-color: white;
+    }
+  }
+}
+
+.modal-backdrop {
+  width: 1000vw !important;
+  height: 1000vh !important;
+}
