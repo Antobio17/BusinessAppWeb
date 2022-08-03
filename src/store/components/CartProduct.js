@@ -15,10 +15,10 @@ function CartProduct(props) {
             <div className="col-3 col-md-2">
                 <img src={webServiceURL + '/images/' + src} alt="ShopProductCart" width="80" height="70"/>
             </div>
-            <div className="col-5 col-md-6"><span>{name}</span></div>
+            <div className="col-5 col-md-6"><span className="cart-product-name">{name}</span></div>
             <div className="row col-4">
-                <div className="col-12 col-md-6 m-auto text-end">
-                    <span><strong>{amount}€ x {quantity}</strong></span>
+                <div className="col-12 col-md-6 m-auto text-end cart-product-amount">
+                    <span className="fw-bold">{amount}€ x {quantity}</span>
                 </div>
                 <div className="col-12 col-md-6 m-auto text-end cart-product-actions">
                     <button onClick={() => props.addToCart(props.product)}><AddIcon/></button>
