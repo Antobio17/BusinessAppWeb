@@ -18,3 +18,22 @@
   width: 1000vw !important;
   height: 1000vh !important;
 }
+
+.shopping-cart {
+  padding: 0;
+
+  .total-amount {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 995px) {
+  .shopping-cart {
+    padding: 0;
+
+    .modal-dialog {
+      max-width: 95%;
+      margin: auto;
+    }
+  }
+}
