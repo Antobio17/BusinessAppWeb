@@ -9,7 +9,7 @@ function ShoppingCart(props) {
     const [show, setShow] = useState(false);
 
     const totalPrice = (cartItems) => {
-        return cartItems.reduce((a, c) => a + (c.price * c.quantity), 0).toFixed(2)
+        return cartItems.reduce((a, c) => a + (c.amount * c.quantity), 0).toFixed(2)
     };
 
     return (
@@ -41,7 +41,7 @@ function ShoppingCart(props) {
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    <div className="shopping-cart-total-txt">
+                    <div className="total-amount">
                         <span className="fw-bold">Total: {totalPrice(props.cartProducts)} €</span>
                     </div>
                 </Modal.Footer>
