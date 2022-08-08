@@ -1,14 +1,18 @@
 // noinspection ES6CheckImport
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {useState} from "react";
 import {AnimatePresence} from 'framer-motion';
 
 import Header from './common/Header';
 import HomePage from './home/HomePage';
 import StorePage from './store/StorePage';
+import LoginPage from './login/LoginPage';
 import Footer from './common/Footer';
 
+import {isLoggedIn as isLoggedInFunct} from "./services/login";
+
 import './App.css';
+
 
 export const webDomain = (window.location.hostname).replace('www.', '');
 export const webServiceURL = process.env.REACT_APP_BUSINESS_APP_WS_URL;
@@ -26,14 +30,17 @@ export const pageTransition = {
 };
 
 function App() {
+    const [isLoggedIn] = useState(isLoggedInFunct());
+
     return (
         <>
             <AnimatePresence exitBeforeEnter>
                 <Router>
-                    <Header/>
+                    <Header isLoggedIn={isLoggedIn}/>
                     <Routes>
                         <Route exact path="/" element={<HomePage/>}/>
                         <Route exact path="/tienda" element={<StorePage/>}/>
+                        <Route exact path="/login" element={<LoginPage/>}/>
                     </Routes>
                 </Router>
             </AnimatePresence>
