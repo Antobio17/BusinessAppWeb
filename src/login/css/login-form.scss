@@ -1,0 +1,100 @@
+.login-form {
+  display: grid;
+  margin: 100px auto 80px;
+  width: 700px;
+  padding: 40px;
+  position: relative;
+  text-align: center;
+  transition: 0.25s;
+  border: 1px solid #e9e9e9;
+  border-radius: 50px;
+  box-shadow: 0 0 20px #e9e9e9;
+
+  .btn-login {
+    padding: 9px 25px;
+    border-radius: 30px;
+    border: 2px solid var(--secondary);
+    background: transparent;
+    color: var(--secondary);
+    font-weight: bold;
+    transition: all 0.2s ease-out;
+    width: 180px;
+    margin: 40px auto 0;
+
+    &:hover {
+      color: #ffffff;
+      border: 2px solid var(--primary);
+      background: var(--primary);
+      transition: all 0.2s ease-out;
+      font-weight: bold;
+    }
+
+    &:disabled,
+    &:disabled:hover {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+      background: #949494;
+      opacity: 1;
+      font-weight: normal;
+    }
+  }
+
+  & input[type="text"],
+  & input[type="password"] {
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 3px solid var(--secondary);
+    padding: 10px 10px;
+    width: 350px;
+    outline: none;
+    color: var(--secondary);
+    border-radius: 24px;
+    transition: 0.25s;
+
+    &:focus {
+      width: 380px;
+      border-color: var(--primary);
+    }
+  }
+
+  .forgot-href {
+    color: var(--primary);
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .signup-href {
+    color: #222222;
+    transition-duration: 0.3s;
+
+    &:hover {
+      color: #222222;
+      text-decoration: none;
+      text-shadow: -0.1px -0.1px 0 #FFFFFF,
+      0 -0.1px 0 #FFFFFF,
+      -0.1px 0 0 #FFFFFF,
+      0 0 0 #FFFFFF;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s;
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .login-form {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .login-form {
+    & input[type="text"],
+    & input[type="password"] {
+      width: 95%;
+    }
+  }
+}
