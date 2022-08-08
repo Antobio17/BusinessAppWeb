@@ -4,11 +4,11 @@ import './css/header.css';
 
 import NavBar from "./components/NavBar";
 
-function Header() {
+function Header(props) {
     return (
         <>
             <header className="header">
-                <NavBar/>
+                <NavBar isLoggedIn={props.isLoggedIn}/>
             </header>
         </>
     );

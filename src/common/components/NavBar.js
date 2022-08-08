@@ -9,12 +9,10 @@ import './css/navbar.scss';
 import NavMenu from './NavMenu';
 import {businessName} from "../../App";
 
-
 const useStyles = makeStyles({list: {width: 250}, fullList: {width: 'auto'}});
 
 function NavBar(props) {
     const [click, setClick] = useState(false);
-    const [isLoggedIn] = useState(false);
 
     const logoSrc = process.env.REACT_APP_CONFIG_WEBSITE_BUSINESS_LOGO_SRC;
 
