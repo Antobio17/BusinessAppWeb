@@ -7,6 +7,7 @@ import {List} from "@material-ui/core";
 import NavItem from './NavItem';
 import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
 import Button from "./Button";
+import {logout} from "../../services/login";
 
 function NavMenu(props) {
     return (
@@ -17,7 +18,7 @@ function NavMenu(props) {
                 <>
                     <NavItem to={'/citas'} iconLabel={<TodayTwoToneIcon/>} label={'Citas'}/>
                     <NavItem to={'/perfil'} iconLabel={<AccountCircleTwoToneIcon/>} label={'Mi perfil'}/>
-                    <Button to={'/logout'} label={'Cerrar Sesión'}/>
+                    <button onClick={() => logout()} className="custom-btn">Cerrar Sesión</button>
                 </> :
                 <Button to={'/login'} label={'Iniciar Sesión'}/>
             }

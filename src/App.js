@@ -13,7 +13,6 @@ import {isLoggedIn as isLoggedInFunct} from "./services/login";
 
 import './App.css';
 
-
 export const webDomain = (window.location.hostname).replace('www.', '');
 export const webServiceURL = process.env.REACT_APP_BUSINESS_APP_WS_URL;
 export const businessName = process.env.REACT_APP_CONFIG_WEBSITE_BUSINESS_NAME;
