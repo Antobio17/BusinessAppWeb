@@ -15,3 +15,8 @@ export const login = (email, password) => {
 export const isLoggedIn = () => {
     return document.cookie.match(/^(.*;)?\s*jwt_hp\s*=\s*[^;]+(.*)?$/) !== null;
 };
+
+export const logout = () => {
+    document.cookie = 'jwt_hp=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.location.href = '/';
+};
