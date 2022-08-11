@@ -12,15 +12,15 @@ function CartProduct(props) {
 
     return (
         <div key={id} className="row align-items-center cart-product">
-            <div className="col-3 col-md-2">
+            <div className="col-12 col-md-2">
                 <img src={webServiceURL + '/images/' + src} alt="ShopProductCart" width="80" height="70"/>
             </div>
-            <div className="col-5 col-md-6"><span className="cart-product-name">{name}</span></div>
-            <div className="row col-4">
-                <div className="col-12 col-md-6 m-auto text-end cart-product-amount">
+            <div className="col-12 col-md-6"><span className="cart-product-name">{name}</span></div>
+            <div className="row col-12 col-md-4">
+                <div className="col-6 m-auto text-end cart-product-amount">
                     <span className="fw-bold">{amount}€ x {quantity}</span>
                 </div>
-                <div className="col-12 col-md-6 m-auto text-end cart-product-actions">
+                <div className="col-6 m-auto text-end cart-product-actions">
                     <button onClick={() => props.addToCart(props.product)}><AddIcon/></button>
                     {canDelete &&
                     <button onClick={() => props.removeFromCart(props.product, false)}><RemoveIcon/></button>

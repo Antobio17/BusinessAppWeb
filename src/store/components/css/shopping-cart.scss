@@ -20,20 +20,34 @@
 }
 
 .shopping-cart {
-  padding: 0;
+  padding: 0 !important;
+  width: 100%;
 
   .total-amount {
     font-size: 20px;
+  }
+
+  .modal-content {
+    border: 3px solid #222222;
+    padding: 20px 40px;
   }
 }
 
 @media only screen and (max-width: 995px) {
   .shopping-cart {
-    padding: 0;
+    padding: 0 !important;
 
     .modal-dialog {
       max-width: 95%;
       margin: auto;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .shopping-cart {
+    .modal-dialog {
+      margin: 1.5rem auto;
     }
   }
 }
