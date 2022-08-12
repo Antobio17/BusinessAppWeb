@@ -20,7 +20,7 @@ function AppointmentPage() {
     const [show, setShow] = useState(false);
     const [selectedDay, setSelectedDay] = useState(undefined);
     const [selectedDayFormatted, setSelectedDayFormatted] = useState(undefined);
-    const [hours, setHours] = useState([{0: '08:00:00', 1: '14:00:00'}]);
+    const [hours, setHours] = useState([{0: '08:00:00', 1: '14:00:00'}, {0: '16:00:00', 1: '21:00:00'}]);
     const [appointmentDuration, setAppointmentDuration] = useState(60);
 
     const onClickDay = (day) => {
