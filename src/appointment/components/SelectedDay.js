@@ -17,6 +17,7 @@ function SelectedDay(props) {
         // noinspection JSUnusedLocalSymbols
         Object.entries(hours).forEach(([key, value]) => {
             hour = value[0];
+            render.push(<h4 className="shift-title fw-bold">Turno: {value[0]} a {value[1]}</h4>);
             do {
                 render.push(<Hour key={hour} hour={hour} available={false}/>);
                 hour = incrementHour(hour, appointmentDuration);
