@@ -14,12 +14,13 @@ function SelectedDay(props) {
     const getRenderHours = () => {
         let render = [], hour;
 
-        Object.entries(hours).forEach(([value]) => {
+        // noinspection JSUnusedLocalSymbols
+        Object.entries(hours).forEach(([key, value]) => {
             hour = value[0];
             do {
                 render.push(<Hour key={hour} hour={hour} available={false}/>);
                 hour = incrementHour(hour, appointmentDuration);
-            } while (isGreaterThan(value[1], hour))
+            } while (isGreaterThan(value[1], hour));
         });
 
         return render;
