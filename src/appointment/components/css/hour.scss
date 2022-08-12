@@ -1,3 +1,38 @@
 .hour {
+  border: 3px solid #222222;
+  border-radius: 25px;
+  padding: 20px;
+  display: flex;
+  text-align: center;
+  margin: 10px 0;
 
+  .btn-appointment {
+    max-width: 170px;
+    border-radius: 25px;
+    margin: auto;
+    color: #222222;
+    border-color: #222222;
+
+    &:hover {
+      color: white;
+      border-color: white;
+    }
+  }
+
+  .btn-appointment-disabled {
+    border: 3px solid rgb(220,53,69);
+    color: rgb(220,53,69);
+  }
+}
+
+
+@media only screen and (max-width: 360px) {
+  .hour {
+    display: grid;
+
+    .btn-appointment {
+      margin-top: 15px;
+      min-width: 90%;
+    }
+  }
 }

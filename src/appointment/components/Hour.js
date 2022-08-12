@@ -5,14 +5,14 @@ import './css/hour.scss';
 function Hour(props) {
     return (
         <article className="hour">
-            <p>{props.hour}</p>
+            <p className="col-6 m-auto fw-bold">{props.hour}</p>
             {props.available ?
-                <button className="btn btn-add-to-cart custom-btn" onClick={() => {
+                <button className="btn btn-appointment custom-btn col-6 fw-bold" onClick={() => {
                     props.addToCart(props.product)
                 }}>
                     Reservar
                 </button> :
-                <button className="btn btn-add-to-cart custom-btn custom-btn-disabled" disabled>
+                <button className="col-6 btn btn-appointment custom-btn btn-appointment-disabled fw-bold" disabled>
                     No disponible
                 </button>
             }
