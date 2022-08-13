@@ -1,5 +1,6 @@
 .appointment {
   padding: 5rem 3rem;
+  min-height: 95vh;
 
   .appointment-intro {
     margin-bottom: 4rem;
@@ -12,6 +13,10 @@
     p {
       font-size: 17px;
     }
+  }
+
+  .alert {
+    text-align: center;
   }
 
   .react-calendar {
