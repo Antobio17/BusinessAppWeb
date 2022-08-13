@@ -44,9 +44,17 @@
       max-width: 700px;
 
       .modal-body {
-        display: grid;
-        grid-template-columns: 100%;
-        justify-content: space-between;
+        .select-day-appointments-container {
+          display: grid;
+          grid-template-columns: 100%;
+          justify-content: space-between;
+
+          .closes-title,
+          .shift-title,
+          .loading {
+            grid-column: span 1;
+          }
+        }
       }
     }
   }
