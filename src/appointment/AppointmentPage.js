@@ -36,6 +36,8 @@ function AppointmentPage() {
     const onBookingMade = () => {
         setBookingMade(true);
         setShow(false);
+        setHasPendingAppointment(undefined);
+        setLoading(true);
     }
 
     useEffect(() => {
