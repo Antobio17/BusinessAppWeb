@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {motion} from 'framer-motion';
 import Calendar from 'react-calendar';
+import Alert from 'react-bootstrap/Alert';
 
 import {pageTransition, pageVariants} from '../App';
 
@@ -10,7 +11,7 @@ import Loading from '../common/components/Loading';
 import SelectedDay from './components/SelectedDay';
 
 import {formatDate} from '../services/tools';
-import {getScheduleConfig} from '../services/appointment';
+import {getPendingUserAppointments, getScheduleConfig} from '../services/appointment';
 
 function AppointmentPage() {
     const date = new Date();
@@ -23,6 +24,8 @@ function AppointmentPage() {
     const [selectedDay, setSelectedDay] = useState(undefined);
     const [appointmentDuration, setAppointmentDuration] = useState(undefined);
     const [selectedDayFormatted, setSelectedDayFormatted] = useState(undefined);
+    const [hasPendingAppointment, setHasPendingAppointment] = useState(undefined);
+    const [bookingMade, setBookingMade] = useState(false);
 
     const onClickDay = (day) => {
         setShow(true);
@@ -30,21 +33,40 @@ function AppointmentPage() {
         setSelectedDayFormatted(formatDate(day));
     };
 
+    const onBookingMade = () => {
+        setBookingMade(true);
+        setShow(false);
+    }
+
     useEffect(() => {
         if (shifts === undefined || appointmentDuration === undefined) {
             Promise.all([
                 getScheduleConfig()
             ]).then(response => {
                 const data = response.length > 0 ? response[0] : [];
-                // noinspection JSUnresolvedVariable
+
                 setShifts('shifts' in data ? data.shifts : undefined);
                 setAppointmentDuration('appointmentDuration' in data ? data.appointmentDuration : undefined);
-                setLoading(false);
             }).catch(error => {
                 console.log('Error al recuperar la configuración del horario del negocio: ' + error);
             });
         }
-    }, [loading]);
+
+        if (hasPendingAppointment === undefined) {
+            Promise.all([
+                getPendingUserAppointments()
+            ]).then(response => {
+                const data = response.length > 0 ? response[0] : [];
+
+                setHasPendingAppointment(data.length > 0);
+            }).catch(error => {
+                console.log('Error al recuperar la configuración del horario del negocio: ' + error);
+            });
+        }
+        setLoading(
+            shifts === undefined || appointmentDuration === undefined || hasPendingAppointment === undefined
+        );
+    }, [loading, hasPendingAppointment, shifts, appointmentDuration]);
 
     return (
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
@@ -56,11 +78,18 @@ function AppointmentPage() {
                 {loading ? <Loading/> : (
                     <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
                                 transition={pageTransition}>
+                        {bookingMade &&
+                        <Alert key={'success'} variant={'success'} onClose={() => setBookingMade(false)}
+                               dismissible>
+                            <strong>Has realizado tu reserva correctamente</strong>
+                        </Alert>
+                        }
                         <Calendar minDate={minDate} maxDate={maxDate} onClickDay={(day) => onClickDay(day)}/>
                         {selectedDay !== undefined && selectedDayFormatted !== undefined &&
-                        <SelectedDay appointmentDuration={appointmentDuration}
+                        <SelectedDay appointmentDuration={appointmentDuration} onBookingMade={onBookingMade}
                                      show={show} setShow={setShow} selectedDay={selectedDay}
-                                     selectedDayFormatted={selectedDayFormatted} shifts={shifts}/>
+                                     selectedDayFormatted={selectedDayFormatted} shifts={shifts}
+                                     hasPendingAppointment={hasPendingAppointment}/>
                         }
                     </motion.div>
                 )}
