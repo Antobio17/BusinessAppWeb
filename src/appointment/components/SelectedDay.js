@@ -62,7 +62,7 @@ function SelectedDay(props) {
         } else {
             setLoading(false);
         }
-    }, []);
+    }, [props.selectedDay]);
 
     return (
         <Modal show={props.show} onHide={() => {
