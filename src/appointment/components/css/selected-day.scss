@@ -10,6 +10,12 @@
         justify-content: space-between;
         padding-bottom: 40px;
 
+        .alert {
+          text-align: center;
+          margin: 20px 0 0;
+        }
+
+        .alert,
         .closes-title,
         .shift-title,
         .loading {
@@ -49,6 +55,7 @@
           grid-template-columns: 100%;
           justify-content: space-between;
 
+          .alert,
           .closes-title,
           .shift-title,
           .loading {
