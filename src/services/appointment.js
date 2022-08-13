@@ -22,3 +22,27 @@ export const getPendingAppointments = (startDate, endDate) => {
         response => response.data.data
     );
 }
+
+export const getPendingUserAppointments = () => {
+    const params = {
+        status: 0,
+    };
+
+    return axios.post(
+        webServiceURL + '/api/get/user/appointments', params, {withCredentials: true}
+    ).then(
+        response => response.data.data
+    );
+}
+
+export const bookUserAppointment = (bookingDateAt) => {
+    const params = {
+        bookingDateAt: bookingDateAt,
+    };
+
+    return axios.post(
+        webServiceURL + '/api/book/user/appointment', params, {withCredentials: true}
+    ).then(
+        response => response.data
+    );
+}
