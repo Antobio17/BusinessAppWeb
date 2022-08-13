@@ -6,12 +6,24 @@
  * @returns {`${string}, ${number} de ${string} de ${number}`}
  */
 export const formatDate = (date) => {
-    const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
-            "Octubre", "Noviembre", "Diciembre"]
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
+            "Octubre", "Noviembre", "Diciembre"];
 
-    return `${days[date.getDay()]}, ${date.getDate()} de ${months[date.getMonth()]} de ${date.getFullYear()}`;
+    return `${formatDay(date.getDay())}, ${date.getDate()} de ${months[date.getMonth()]} de ${date.getFullYear()}`;
 }
+
+/**
+ * Returns the integer day in spanish format.
+ *
+ * @param day Day to format.
+ *
+ * @returns {string}
+ */
+export const formatDay = (day) => {
+    const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+
+    return days[day];
+};
 
 /**
  * Increments an hours passed like "09:00:00" with the variable minutsIncrement passed.
