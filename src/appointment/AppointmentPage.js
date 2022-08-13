@@ -1,27 +1,28 @@
-import React, {useEffect, useState} from "react";
-import {motion} from "framer-motion";
+import React, {useEffect, useState} from 'react';
+import {motion} from 'framer-motion';
 import Calendar from 'react-calendar';
 
-import {pageTransition, pageVariants} from "../App";
+import {pageTransition, pageVariants} from '../App';
 
 import './css/appointment-page.scss';
 
-import Loading from "../common/components/Loading";
-import SelectedDay from "./components/SelectedDay";
+import Loading from '../common/components/Loading';
+import SelectedDay from './components/SelectedDay';
 
-import {formatDate} from "../services/tools";
+import {formatDate} from '../services/tools';
+import {getScheduleConfig} from '../services/appointment';
 
 function AppointmentPage() {
     const date = new Date();
     const minDate = new Date(date.getTime() + 86400000);
     const maxDate = new Date(date.getTime() + 2592000000);
 
-    const [loading, setLoading] = useState(true);
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [shifts, setShifts] = useState(undefined);
     const [selectedDay, setSelectedDay] = useState(undefined);
+    const [appointmentDuration, setAppointmentDuration] = useState(undefined);
     const [selectedDayFormatted, setSelectedDayFormatted] = useState(undefined);
-    const [hours, setHours] = useState([{0: '08:00:00', 1: '14:00:00'}, {0: '16:00:00', 1: '21:00:00'}]);
-    const [appointmentDuration, setAppointmentDuration] = useState(60);
 
     const onClickDay = (day) => {
         setShow(true);
@@ -30,8 +31,20 @@ function AppointmentPage() {
     };
 
     useEffect(() => {
-        setLoading(false);
-    }, [loading, show]);
+        if (shifts === undefined || appointmentDuration === undefined) {
+            Promise.all([
+                getScheduleConfig()
+            ]).then(response => {
+                const data = response.length > 0 ? response[0] : [];
+                // noinspection JSUnresolvedVariable
+                setShifts('shifts' in data ? data.shifts : undefined);
+                setAppointmentDuration('appointmentDuration' in data ? data.appointmentDuration : undefined);
+                setLoading(false);
+            }).catch(error => {
+                console.log('Error al recuperar la configuración del horario del negocio: ' + error);
+            });
+        }
+    }, [loading]);
 
     return (
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
@@ -44,9 +57,11 @@ function AppointmentPage() {
                     <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
                                 transition={pageTransition}>
                         <Calendar minDate={minDate} maxDate={maxDate} onClickDay={(day) => onClickDay(day)}/>
-                        <SelectedDay show={show} setShow={setShow} selectedDay={selectedDay}
-                                     selectedDayFormatted={selectedDayFormatted} hours={hours}
-                                     appointmentDuration={appointmentDuration}/>
+                        {selectedDay !== undefined && selectedDayFormatted !== undefined &&
+                        <SelectedDay appointmentDuration={appointmentDuration}
+                                     show={show} setShow={setShow} selectedDay={selectedDay}
+                                     selectedDayFormatted={selectedDayFormatted} shifts={shifts}/>
+                        }
                     </motion.div>
                 )}
             </main>
