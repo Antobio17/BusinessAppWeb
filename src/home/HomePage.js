@@ -13,6 +13,7 @@ import ServiceBox from './components/ServiceBox';
 import {pageTransition, pageVariants, webServiceURL, businessName} from "../App";
 import ShoppingCart from '../assets/images/shopping-cart.png';
 import {getHomeData} from "../services/home";
+import {formatDay} from "../services/tools";
 
 function HomePage() {
     const [loading, setLoading] = useState(true);
@@ -52,22 +53,16 @@ function HomePage() {
                                 transition={pageTransition}>
                         <section className="row section-presentation">
                             <div className="col-12 col-md-4 col-lg-3 text-center">
-                                <img
-                                    src={webServiceURL + '/images/' + introData.imageSrc}
-                                    alt={introData.bossName} width="300" height="300"
-                                />
+                                <img src={webServiceURL + '/images/' + introData.imageSrc}
+                                    alt={introData.bossName} width="300" height="300"/>
                             </div>
                             <div className="col-12 col-md-6 col-lg-9 mt-5  mt-md-auto presentation-container">
                                 <span className="title">¿Quién es {introData.bossName}?</span>
-                                <p className="presentation">
-                                    {introData.description}
-                                </p>
+                                <p className="presentation">{introData.description}</p>
                             </div>
                         </section>
                         <section className="section-images">
-                            <div className="row">
-                                <InstagramHeader/>
-                            </div>
+                            <div className="row"><InstagramHeader/></div>
                             <div className="row images-container">
                                 {
                                     Object.keys(socialData.images).map((key) => (
@@ -82,45 +77,38 @@ function HomePage() {
                             </div>
                         </section>
                         <section className="section-business-services">
-                            <div className="services-title">
-                                <span>¿Qué ofrecemos?</span>
-                            </div>
+                            <div className="services-title"><span>¿Qué ofrecemos?</span></div>
                             <div className="services-container row">
                                 {
                                     Object.keys(servicesData).map((key) => (
                                         <ServiceBox
-                                            key={key}
+                                            key={key} alt="Servicio" width="60" height="60"
                                             imageSrc={webServiceURL + '/images/' + servicesData[key].imageSrc}
-                                            alt="Servicio"
-                                            width="60"
-                                            height="60"
-                                            title={servicesData[key].title}
-                                            description={servicesData[key].description}
+                                            title={servicesData[key].title} description={servicesData[key].description}
                                         />
                                     ))
                                 }
                             </div>
                         </section>
                         <section className="section-business-contact">
-                            <div className="contact-title">
-                                <span>Contacta con {contactData.businessName}</span>
-                            </div>
+                            <div className="contact-title"><span>Contacta con {contactData.businessName}</span></div>
                             <div className="contact-container">
                                 <span><strong>Dirección:</strong> {contactData.address}</span>
-                                <span>
-                                    <strong>Horario: </strong>
-                                    {Object.keys(contactData.businessHours).map((key) => (
-                                        <span className="m-1" key={key}>
-                                            {contactData.businessHours[key].opensAt} a {contactData.businessHours[key].closesAt} |
-                                        </span>
-                                    ))}
-                                </span>
                                 {'email' in contactData &&
                                 <span><strong>Email:</strong> {contactData.email}</span>
                                 }
                                 {'phoneNumber' in contactData &&
                                 <span><strong>Teléfono:</strong> {contactData.phoneNumber}</span>
                                 }
+                                <h3 className="mt-3"><strong>Horario</strong></h3>
+                                {Object.keys(contactData.businessHours).map((key) => (
+                                    <span className="m-1" key={key}>
+                                        <strong>{formatDay(key)}: </strong> |
+                                        {Object.keys(contactData.businessHours[key]).map((index) => (
+                                            <span key={index}> {contactData.businessHours[key][index].opensAt} a {contactData.businessHours[key][index].closesAt} |</span>
+                                        ))}
+                                    </span>
+                                ))}
                             </div>
                         </section>
                         <section className="row section-store-info">
