@@ -2,6 +2,7 @@ import {Modal} from 'react-bootstrap';
 import React, {useEffect, useState} from 'react';
 import {motion} from 'framer-motion';
 import TodayIcon from '@material-ui/icons/Today';
+import Alert from "react-bootstrap/Alert";
 
 import {pageTransition, pageVariants} from '../../App';
 
@@ -29,7 +30,11 @@ function SelectedDay(props) {
                 hour = opensAt;
                 render.push(<h4 key={key} className="shift-title fw-bold">Turno: {opensAt} a {closesAt}</h4>);
                 do {
-                    render.push(<Hour key={hour} hour={hour} available={!(pendingAppointments.includes(hour))}/>);
+                    render.push(
+                        <Hour key={hour} hour={hour} day={props.selectedDay} onBookingMade={props.onBookingMade}
+                              available={!(pendingAppointments.includes(hour))}
+                              hasPendingAppointment={props.hasPendingAppointment}/>
+                    );
                     hour = incrementHour(hour, appointmentDuration);
                 } while (isGreaterThan(closesAt, hour));
             });
@@ -80,6 +85,11 @@ function SelectedDay(props) {
                     <Loading/> :
                     <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
                                 transition={pageTransition} className="select-day-appointments-container">
+                        {props.hasPendingAppointment &&
+                        <Alert key={'warning'} variant={'warning'}>
+                            <strong>No puedes reservar cita debido a que ya tienes una pendiente, revisa tu perfil</strong>
+                        </Alert>
+                        }
                         {getRenderHours()}
                     </motion.div>
                 }
