@@ -41,23 +41,27 @@ function SelectedDay(props) {
     };
 
     useEffect(() => {
-        const startDate = props.selectedDay.getTime() / 1000;
-        const endDate = (new Date(props.selectedDay.getTime())).setHours(23, 59,59) / 1000;
+        if (selectedWeekDay in shifts) {
+            const startDate = props.selectedDay.getTime() / 1000;
+            const endDate = (new Date(props.selectedDay.getTime())).setHours(23, 59, 59) / 1000;
 
-        Promise.all([
-            getPendingAppointments(startDate, endDate)
-        ]).then(response => {
-            const data = response.length > 0 ? response[0] : [];
-            let hoursPending = [];
-            // noinspection JSUnusedLocalSymbols
-            Object.entries(data).forEach(([key, {bookingDateAt}]) => {
-                hoursPending.push(bookingDateAt.date.split(' ')[1].split('.')[0])
+            Promise.all([
+                getPendingAppointments(startDate, endDate)
+            ]).then(response => {
+                const data = response.length > 0 ? response[0] : [];
+                let hoursPending = [];
+                // noinspection JSUnusedLocalSymbols
+                Object.entries(data).forEach(([key, {bookingDateAt}]) => {
+                    hoursPending.push(bookingDateAt.date.split(' ')[1].split('.')[0])
+                });
+                setPendingAppointments(hoursPending);
+                setLoading(false);
+            }).catch(error => {
+                console.log('Error al recuperar la configuración del horario del negocio: ' + error);
             });
-            setPendingAppointments(hoursPending);
+        } else {
             setLoading(false);
-        }).catch(error => {
-            console.log('Error al recuperar la configuración del horario del negocio: ' + error);
-        });
+        }
     }, []);
 
     return (
