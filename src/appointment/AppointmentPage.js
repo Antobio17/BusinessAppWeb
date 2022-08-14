@@ -21,6 +21,7 @@ function AppointmentPage() {
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(true);
     const [shifts, setShifts] = useState(undefined);
+    const [numWorkers, setNumWorkers] = useState(undefined);
     const [selectedDay, setSelectedDay] = useState(undefined);
     const [appointmentDuration, setAppointmentDuration] = useState(undefined);
     const [selectedDayFormatted, setSelectedDayFormatted] = useState(undefined);
@@ -41,7 +42,7 @@ function AppointmentPage() {
     }
 
     useEffect(() => {
-        if (shifts === undefined || appointmentDuration === undefined) {
+        if (shifts === undefined || appointmentDuration === undefined || numWorkers === undefined) {
             Promise.all([
                 getScheduleConfig()
             ]).then(response => {
@@ -49,6 +50,7 @@ function AppointmentPage() {
 
                 setShifts('shifts' in data ? data.shifts : undefined);
                 setAppointmentDuration('appointmentDuration' in data ? data.appointmentDuration : undefined);
+                setNumWorkers('numWorkers' in data ? data.numWorkers : undefined);
             }).catch(error => {
                 console.log('Error al recuperar la configuración del horario del negocio: ' + error);
             });
@@ -66,7 +68,8 @@ function AppointmentPage() {
             });
         }
         setLoading(
-            shifts === undefined || appointmentDuration === undefined || hasPendingAppointment === undefined
+            shifts === undefined || appointmentDuration === undefined
+            || hasPendingAppointment === undefined || numWorkers === undefined
         );
     }, [loading, hasPendingAppointment, shifts, appointmentDuration]);
 
@@ -91,7 +94,7 @@ function AppointmentPage() {
                         <SelectedDay appointmentDuration={appointmentDuration} onBookingMade={onBookingMade}
                                      show={show} setShow={setShow} selectedDay={selectedDay}
                                      selectedDayFormatted={selectedDayFormatted} shifts={shifts}
-                                     hasPendingAppointment={hasPendingAppointment}/>
+                                     hasPendingAppointment={hasPendingAppointment} numWorkers={numWorkers}/>
                         }
                     </motion.div>
                 )}
