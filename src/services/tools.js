@@ -65,6 +65,14 @@ export const isGreaterThan = (greaterHour, hour) => {
     return splitGreaterHour[0] > splitHour[0] || splitGreaterHour[1] > splitHour[1];
 };
 
+/**
+ * Counts the number of appearances of a value in an array.
+ *
+ * @param array The array with the values.
+ * @param value The value to search.
+ *
+ * @returns {number}
+ */
 export const countAppearances = (array, value) => {
     let counter = 0;
 
