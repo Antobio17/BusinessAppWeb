@@ -7,6 +7,7 @@ import Header from './common/Header';
 import HomePage from './home/HomePage';
 import StorePage from './store/StorePage';
 import AppointmentPage from "./appointment/AppointmentPage";
+import ProfilePage from "./profile/ProfilePage";
 import LoginPage from './login/LoginPage';
 import Footer from './common/Footer';
 
@@ -41,6 +42,7 @@ function App() {
                         <Route exact path="/" element={<HomePage/>}/>
                         <Route exact path="/tienda" element={<StorePage/>}/>
                         <Route exact path="/citas" element={<AppointmentPage/>}/>
+                        <Route exact path="/perfil" element={<ProfilePage/>}/>
                         <Route exact path="/login" element={<LoginPage/>}/>
                     </Routes>
                 </Router>
