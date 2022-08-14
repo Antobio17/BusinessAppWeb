@@ -15,6 +15,7 @@
     width: 100%;
     padding: 7rem 5rem;
     align-items: center;
+    margin: 0;
 
     img {
       filter: drop-shadow(0 2px 5px rgb(14, 14, 14));
@@ -168,6 +169,18 @@
 
     .section-store-info {
       padding: 10rem 2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .home {
+    .section-presentation,
+    .section-business-services,
+    .section-images,
+    .section-business-contact,
+    .section-store-info {
+      padding: 7rem 3rem;
     }
   }
 }
