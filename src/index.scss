@@ -57,7 +57,11 @@ body {
   font-family: 'Raleway-Light', Helvetica, monospace;
 }
 
+input {
+  font-weight: bold;
+}
+
 input:-webkit-autofill{
-  -webkit-text-fill-color: white;
-  -webkit-box-shadow: 0 0 0 1000px #1c1f24 inset;
+  -webkit-text-fill-color: #222222;
+  -webkit-box-shadow: 0 0 0 1000px #eaeaea inset;
 }
