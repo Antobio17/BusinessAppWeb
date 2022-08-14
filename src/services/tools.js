@@ -64,3 +64,13 @@ export const isGreaterThan = (greaterHour, hour) => {
 
     return splitGreaterHour[0] > splitHour[0] || splitGreaterHour[1] > splitHour[1];
 };
+
+export const countAppearances = (array, value) => {
+    let counter = 0;
+
+    array.forEach(arrayValue => {
+        counter = arrayValue === value ? counter + 1 : counter;
+    });
+
+    return counter;
+}

@@ -9,7 +9,7 @@ import {pageTransition, pageVariants} from '../../App';
 import Hour from './Hour';
 import Loading from '../../common/components/Loading';
 
-import {incrementHour, isGreaterThan} from '../../services/tools';
+import {countAppearances, incrementHour, isGreaterThan} from '../../services/tools';
 import {getPendingAppointments} from '../../services/appointment';
 
 import './css/selected-day.scss';
@@ -32,7 +32,7 @@ function SelectedDay(props) {
                 do {
                     render.push(
                         <Hour key={hour} hour={hour} day={props.selectedDay} onBookingMade={props.onBookingMade}
-                              available={!(pendingAppointments.includes(hour))}
+                              available={countAppearances(pendingAppointments, hour) < props.numWorkers}
                               hasPendingAppointment={props.hasPendingAppointment}/>
                     );
                     hour = incrementHour(hour, appointmentDuration);
