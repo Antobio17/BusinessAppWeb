@@ -17,12 +17,13 @@ import AppointmentTabPanel from "./components/AppointmentTabPanel";
 import OrderTabPanel from "./components/OrderTabPanel";
 import Loading from "../common/components/Loading";
 
-import {getUserData} from "../services/user";
+import {getUserData, getPostalAddresses} from "../services/user";
 
 function ProfilePage() {
     const [value, setValue] = useState(0);
     const [loading, setLoading] = useState(true);
     const [profileData, setProfileData] = useState(undefined);
+    const [postalAddresses, setPostalAddresses] = useState(undefined);
 
     const onChange = (e, newValue) => {
         setValue(newValue);
@@ -34,14 +35,28 @@ function ProfilePage() {
                 getUserData()
             ]).then(response => {
                 const data = response.length > 0 ? response[0] : [];
-                console.log(data);
                 setProfileData(data);
             }).catch(error => {
                 console.log('Error al recuperar la configuración del horario del negocio: ' + error);
             });
         }
 
-        setLoading(profileData === undefined);
+        if (postalAddresses === undefined) {
+            Promise.all([
+                getPostalAddresses()
+            ]).then(response => {
+                const data = response.length > 0 ? response[0] : [];
+
+                let addresses = [];
+                // noinspection JSUnusedLocalSymbols
+                Object.entries(data).forEach(([key, pAddresses]) => {addresses.push(pAddresses)});
+                setPostalAddresses(addresses);
+            }).catch(error => {
+                console.log('Error al recuperar las direcciones postales del usuario: ' + error);
+            });
+        }
+
+        setLoading(profileData === undefined || postalAddresses === undefined);
     }, [loading, profileData]);
 
     return (
@@ -52,7 +67,8 @@ function ProfilePage() {
                     <p>Busca en nuestro calendario un hueco para ti ¡No tardes en reservar tu cita!</p>
                 </section>
                 {loading ? <Loading/> : (
-                    <>
+                    <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
+                                transition={pageTransition}>
                         <Tabs value={value} onChange={onChange} variant="scrollable" scrollButtons="auto"
                               aria-label="scrollable auto tabs example">
                             <Tab label={<PersonIcon/>}/>
@@ -61,10 +77,12 @@ function ProfilePage() {
                             <Tab label={<ShoppingCartIcon/>}/>
                         </Tabs>
                         <TabPanel value={value} index={0}><ProfileTabPanel profileData={profileData}/></TabPanel>
-                        <TabPanel value={value} index={1}><PostalAddressTabPanel/></TabPanel>
+                        <TabPanel value={value} index={1}>
+                            <PostalAddressTabPanel postalAddresses={postalAddresses}/>
+                        </TabPanel>
                         <TabPanel value={value} index={2}><AppointmentTabPanel/></TabPanel>
                         <TabPanel value={value} index={3}><OrderTabPanel/></TabPanel>
-                    </>
+                    </motion.div>
                 )}
             </main>
         </motion.div>

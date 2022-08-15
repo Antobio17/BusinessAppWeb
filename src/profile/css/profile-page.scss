@@ -101,7 +101,13 @@
     padding: 5rem 2rem;
 
     .tab-panel-container {
-      width: 100%;
+      width: 98%;
+
+      & input[type="text"],
+      & input[type="password"],
+      & input[type="number"] {
+        width: 98%;
+      }
     }
   }
 }

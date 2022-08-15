@@ -1,3 +1,12 @@
+.postal-address-new {
+  .close-icon {
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+}
+
 .postal-address-list {
   margin-top: 2rem;
 
@@ -7,5 +16,38 @@
 
   span {
     margin-top: 10px !important;
+  }
+
+  .postal-address-item {
+    width: 600px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    margin: 20px auto 0;
+    box-shadow: 0 0 20px #a9a9a9;
+
+    p {
+      margin: 0;
+      padding-right: 40px;
+      word-break: break-all;
+    }
+
+    .btn-profile {
+      margin: 0;
+      width: 50px;
+      padding: 9px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 680px) {
+  .postal-address-list {
+    .postal-address-item {
+      width: 98%;
+    }
   }
 }
