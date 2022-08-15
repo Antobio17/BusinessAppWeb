@@ -6,3 +6,9 @@ export const getUserData = () => {
         response => response.data.data
     );
 }
+
+export const getPostalAddresses = () => {
+    return axios.post(webServiceURL + '/api/get/user/postalAddresses', {}, {withCredentials: true}).then(
+        response => response.data.data
+    );
+}

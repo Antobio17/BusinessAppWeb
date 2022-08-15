@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import HomeIcon from "@material-ui/icons/Home";
+import CreateIcon from '@material-ui/icons/Create';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {Collapse} from "react-bootstrap";
 
 import './css/postal-address-tap-panel.scss';
 
 import PostalAddressForm from "./PostalAddressForm";
 
-function PostalAddressTabPanel() {
-    const postalAddresses = [];
+function PostalAddressTabPanel(props) {
 
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
@@ -18,6 +19,25 @@ function PostalAddressTabPanel() {
     const [province, setProvince] = useState('');
     const [state, setState] = useState('');
     const [btnLabel, setBtnLabel] = useState('Crear');
+
+    const renderPostalAddresses = () => {
+        let render = [];
+        Object.entries(props.postalAddresses).forEach(([key, postalAddresses]) => {
+            render.push(
+                <article key={key} className="postal-address-item">
+                    <p className="fw-bold">{postalAddresses.name}</p>
+                    <button className="btn btn-profile custom-btn" onClick={() => {
+                        setOpen(true);
+                        setBtnLabel('Editar');
+                    }}>
+                        <CreateIcon/>
+                    </button>
+                </article>
+            );
+        })
+
+        return render;
+    }
 
     return (
         <>
@@ -30,7 +50,7 @@ function PostalAddressTabPanel() {
             </section>
             <section className="postal-address-new text-center">
                 <button className="btn btn-profile custom-btn" onClick={() => {
-                    setOpen(!open);
+                    setOpen(true);
                     setBtnLabel('Crear');
                 }}>
                     Nueva <HomeIcon/>
@@ -43,14 +63,15 @@ function PostalAddressTabPanel() {
                                            population={population} setPopulation={setPopulation} btnLabel={btnLabel}
                                            province={province} setProvince={setProvince} state={state}
                                            setState={setState}/>
+                        <KeyboardArrowUpIcon className="close-icon" onClick={() => {setOpen(false)}}/>
                     </div>
                 </Collapse>
             </section>
             <section className="postal-address-list text-center">
                 <h5>Tus direcciones</h5>
-                {postalAddresses.length === 0 ?
+                {props.postalAddresses.length === undefined || props.postalAddresses.length === 0 ?
                     <span className="fw-bold">Aún no has añadido ninguna dirección</span> :
-                    <></>
+                    <>{renderPostalAddresses()}</>
                 }
             </section>
         </>
