@@ -9,10 +9,13 @@ import {getUserAppointments} from "../../services/appointment";
 import Appointment, {statusPending} from "./Appointment";
 import {pageTransition, pageVariants} from "../../App";
 import ReactPaginate from "react-paginate";
+import Alert from "react-bootstrap/Alert";
 
 function AppointmentTabPanel(props) {
     const [loading, setLoading] = useState(true);
     const [appointments, setAppointments] = useState(undefined);
+    const [setBookingCancelled] = useState(false);
+    const [messageAlert, setMessageAlert] = useState(undefined);
 
     // Appointments Pagination
     const [page, setPage] = useState(0);
@@ -36,6 +39,24 @@ function AppointmentTabPanel(props) {
         return render;
     };
 
+    const onBookingCancelled = (result) => {
+        if (result) {
+            props.setPendingAppointment(null);
+            setAppointments(undefined);
+            setLoading(false);
+            setMessageAlert({
+                'type': 'success',
+                'message': 'Has cancelado tu cita con éxito.',
+            });
+        } else {
+            setMessageAlert({
+                'type': 'danger',
+                'message': 'Ha ocurrido un error al intentar cancelar la cita.',
+            });
+        }
+        setBookingCancelled(result);
+    };
+
     useEffect(() => {
         if (appointments === undefined) {
             Promise.all([
@@ -48,8 +69,8 @@ function AppointmentTabPanel(props) {
             });
         }
 
-        setLoading(appointments === undefined)
-    }, [appointments, page]);
+        setLoading(appointments === undefined);
+    }, [loading, appointments, page]);
 
     return (
         <>
@@ -58,11 +79,21 @@ function AppointmentTabPanel(props) {
                 <p>Puedes ver tu historial de citas aquí.</p>
             </section>
             <section className="pending-appointment">
+                {messageAlert !== undefined &&
+                <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
+                            transition={pageTransition}>
+                    <Alert key={messageAlert.type} variant={messageAlert.type} className="text-center m-2"
+                           onClose={() => setMessageAlert(undefined)} dismissible>
+                        <strong>{messageAlert.message}</strong>
+                    </Alert>
+                </motion.div>
+                }
                 {props.pendingAppointment === null ?
                     <h6 className="fw-bold text-center m-3">
                         No tienes ninguna cita pendiente ¡realiza tus reservas cuando lo desees!
                     </h6> :
-                    <Appointment appointment={props.pendingAppointment}/>
+                    <Appointment appointment={props.pendingAppointment} userEmail={props.userEmail}
+                                 onBookingCancelled={onBookingCancelled}/>
                 }
             </section>
             <section className="appointment-list text-center">
@@ -70,7 +101,7 @@ function AppointmentTabPanel(props) {
                 {loading ? <Loading/> : (
                     <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
                                 transition={pageTransition}>
-                        {appointments.length === 0 ?
+                        {appointments === undefined || appointments.length === 0 ?
                             <h6 className="fw-bold text-center m-3">
                                 Aún no has reservado ninguna cita.
                             </h6> :

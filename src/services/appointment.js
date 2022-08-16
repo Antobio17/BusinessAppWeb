@@ -50,3 +50,15 @@ export const bookUserAppointment = (bookingDateAt) => {
         response => response.data
     );
 }
+
+export const cancelUserBookedAppointment = (userEmail) => {
+    const params = {
+        userEmail: userEmail,
+    };
+
+    return axios.post(
+        webServiceURL + '/api/cancel/book/user/appointment', params, {withCredentials: true}
+    ).then(
+        response => response.data
+    );
+}
