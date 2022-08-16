@@ -24,8 +24,12 @@ export const getPendingAppointments = (startDate, endDate) => {
 }
 
 export const getPendingUserAppointments = () => {
+    return getUserAppointments(0);
+}
+
+export const getUserAppointments = (status) => {
     const params = {
-        status: 0,
+        status: status,
     };
 
     return axios.post(
