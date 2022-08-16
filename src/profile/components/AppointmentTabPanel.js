@@ -14,7 +14,7 @@ import Alert from "react-bootstrap/Alert";
 function AppointmentTabPanel(props) {
     const [loading, setLoading] = useState(true);
     const [appointments, setAppointments] = useState(undefined);
-    const [setBookingCancelled] = useState(false);
+    const [bookingCancelled, setBookingCancelled] = useState(false);
     const [messageAlert, setMessageAlert] = useState(undefined);
 
     // Appointments Pagination
@@ -70,7 +70,7 @@ function AppointmentTabPanel(props) {
         }
 
         setLoading(appointments === undefined);
-    }, [loading, appointments, page]);
+    }, [loading, appointments, page, bookingCancelled]);
 
     return (
         <>

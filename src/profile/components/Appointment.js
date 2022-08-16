@@ -36,7 +36,7 @@ function Appointment(props) {
     return(
         <article className="appointment-container fw-bold">
             <p>{formatDate(date)} a las {date.getHours()}:{date.getMinutes() < 10 && '0'}{date.getMinutes()}</p>
-            <p className={classNameStatus}>Estado: {statusEnum[status]}</p>
+            <p className={classNameStatus}>{statusEnum[status]}</p>
             {status === 0 && <button className="btn btn-profile custom-btn" onClick={() => {onCancelAppointment()}}>
                 Cancelar <ClearIcon/>
             </button>}
