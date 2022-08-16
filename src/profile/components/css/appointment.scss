@@ -1,0 +1,84 @@
+.appointment-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  box-shadow: 0 0 20px #a9a9a9;
+
+  p {
+    margin: 0;
+    padding: 0 20px;
+  }
+
+  .btn-profile {
+    margin: 0 !important;
+
+    &:hover {
+      background: rgb(220, 53, 69) !important;
+    }
+  }
+}
+
+//noinspection ALL
+.appointments-pagination {
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 0;
+  padding: 0;
+
+  a {
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid #f1f1f1;
+    color: #1c1f24 !important;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .next a:hover,
+  .previous a:hover {
+    border-color: #1c1f24;
+    transition: 0.3s;
+  }
+
+  .pagination-active {
+    a {
+      border-color: #1c1f24;
+    }
+  }
+
+  .pagination-disabled-button {
+    a {
+      background: transparent;
+      border: none;
+
+      &:hover {
+        border: none;
+        cursor: default;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .appointment-container {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+
+    p {
+      padding: 10px;
+    }
+
+    .btn-profile {
+      margin: 10px auto !important;
+    }
+  }
+}
