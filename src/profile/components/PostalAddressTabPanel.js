@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import HomeIcon from "@material-ui/icons/Home";
 import CreateIcon from '@material-ui/icons/Create';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -19,10 +19,12 @@ function PostalAddressTabPanel(props) {
     const [province, setProvince] = useState('');
     const [state, setState] = useState('');
     const [btnLabel, setBtnLabel] = useState('Crear');
+    const [postalAddresses, setPostalAddresses] = useState([]);
 
     const renderPostalAddresses = () => {
         let render = [];
-        Object.entries(props.postalAddresses).forEach(([key, postalAddresses]) => {
+
+        Object.entries(postalAddresses).forEach(([key, postalAddresses]) => {
             render.push(
                 <article key={key} className="postal-address-item">
                     <p className="fw-bold">{postalAddresses.name}</p>
@@ -34,10 +36,19 @@ function PostalAddressTabPanel(props) {
                     </button>
                 </article>
             );
-        })
+        });
 
         return render;
     }
+
+    useEffect(() => {
+        let addresses = [];
+        // noinspection JSUnusedLocalSymbols
+        Object.entries(props.postalAddresses).forEach(([key, pAddresses]) => {
+            addresses.push(pAddresses)
+        });
+        setPostalAddresses(addresses);
+    }, []);
 
     return (
         <>
@@ -63,13 +74,15 @@ function PostalAddressTabPanel(props) {
                                            population={population} setPopulation={setPopulation} btnLabel={btnLabel}
                                            province={province} setProvince={setProvince} state={state}
                                            setState={setState}/>
-                        <KeyboardArrowUpIcon className="close-icon" onClick={() => {setOpen(false)}}/>
+                        <KeyboardArrowUpIcon className="close-icon" onClick={() => {
+                            setOpen(false)
+                        }}/>
                     </div>
                 </Collapse>
             </section>
             <section className="postal-address-list text-center">
                 <h5>Tus direcciones</h5>
-                {props.postalAddresses.length === undefined || props.postalAddresses.length === 0 ?
+                {postalAddresses.length === 0 ?
                     <span className="fw-bold">Aún no has añadido ninguna dirección</span> :
                     <>{renderPostalAddresses()}</>
                 }
