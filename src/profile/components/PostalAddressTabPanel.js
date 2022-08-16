@@ -1,12 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import HomeIcon from "@material-ui/icons/Home";
 import CreateIcon from '@material-ui/icons/Create';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {Collapse} from "react-bootstrap";
+import {motion} from "framer-motion";
 
 import './css/postal-address-tap-panel.scss';
 
 import PostalAddressForm from "./PostalAddressForm";
+
+import {setPostalAddress} from "../../services/user";
+import {pageTransition, pageVariants} from "../../App";
+import Alert from "react-bootstrap/Alert";
 
 function PostalAddressTabPanel(props) {
 
@@ -19,18 +24,58 @@ function PostalAddressTabPanel(props) {
     const [province, setProvince] = useState('');
     const [state, setState] = useState('');
     const [btnLabel, setBtnLabel] = useState('Crear');
-    const [postalAddresses, setPostalAddresses] = useState([]);
+    const [selectedID, setSelectedID] = useState(undefined);
+    const [messageAlert, setMessageAlert] = useState(undefined);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        let hasError = false;
+        Promise.all([
+            setPostalAddress(selectedID, name, address, postalCode, population, province, state)
+        ]).then(response => {
+            const data = response.length > 0 ? response[0] : [];
+
+            if (data) {
+                setMessageAlert({
+                    'type': 'success',
+                    'message': 'Has ' + (selectedID !== undefined ? 'actualizado' : 'creado') +
+                        ' la dirección correctamente.',
+                });
+            } else {
+                hasError = true;
+            }
+        }).catch(error => {
+            console.log('Error al establecer la dirección postal: ' + error);
+            hasError = true;
+        });
+
+        if (hasError) {
+            setMessageAlert({
+                'type': 'danger',
+                'message': 'Ha ocurrido un error. Inténtalo de nuevo.',
+            });
+        }
+    };
 
     const renderPostalAddresses = () => {
         let render = [];
 
-        Object.entries(postalAddresses).forEach(([key, postalAddresses]) => {
+        Object.entries(props.postalAddresses).forEach(([key, postalAddress]) => {
             render.push(
                 <article key={key} className="postal-address-item">
-                    <p className="fw-bold">{postalAddresses.name}</p>
+                    <p className="fw-bold">{postalAddress.name}</p>
                     <button className="btn btn-profile custom-btn" onClick={() => {
                         setOpen(true);
                         setBtnLabel('Editar');
+                        // Setting form values
+                        setSelectedID(key);
+                        setName(postalAddress.name);
+                        setAddress(postalAddress.address);
+                        setPostalCode(postalAddress.postalCode);
+                        setPopulation(postalAddress.population);
+                        setProvince(postalAddress.province);
+                        setState(postalAddress.state);
                     }}>
                         <CreateIcon/>
                     </button>
@@ -40,15 +85,6 @@ function PostalAddressTabPanel(props) {
 
         return render;
     }
-
-    useEffect(() => {
-        let addresses = [];
-        // noinspection JSUnusedLocalSymbols
-        Object.entries(props.postalAddresses).forEach(([key, pAddresses]) => {
-            addresses.push(pAddresses)
-        });
-        setPostalAddresses(addresses);
-    }, []);
 
     return (
         <>
@@ -60,9 +96,25 @@ function PostalAddressTabPanel(props) {
                 </p>
             </section>
             <section className="postal-address-new text-center">
+                {messageAlert !== undefined &&
+                <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
+                            transition={pageTransition}>
+                    <Alert key={messageAlert.type} variant={messageAlert.type} className="text-center m-2"
+                           onClose={() => setMessageAlert(undefined)} dismissible>
+                        <strong>{messageAlert.message}</strong>
+                    </Alert>
+                </motion.div>
+                }
                 <button className="btn btn-profile custom-btn" onClick={() => {
                     setOpen(true);
                     setBtnLabel('Crear');
+                    setSelectedID(undefined);
+                    setName('');
+                    setAddress('');
+                    setPostalCode('');
+                    setPopulation('');
+                    setProvince('');
+                    setState('');
                 }}>
                     Nueva <HomeIcon/>
                 </button>
@@ -73,7 +125,7 @@ function PostalAddressTabPanel(props) {
                                            postalCode={postalCode} setPostalCode={setPostalCode}
                                            population={population} setPopulation={setPopulation} btnLabel={btnLabel}
                                            province={province} setProvince={setProvince} state={state}
-                                           setState={setState}/>
+                                           setState={setState} selectedID={selectedID} onSubmit={onSubmit}/>
                         <KeyboardArrowUpIcon className="close-icon" onClick={() => {
                             setOpen(false)
                         }}/>
@@ -82,7 +134,7 @@ function PostalAddressTabPanel(props) {
             </section>
             <section className="postal-address-list text-center">
                 <h5>Tus direcciones</h5>
-                {postalAddresses.length === 0 ?
+                {props.postalAddresses.length === 0 ?
                     <span className="fw-bold">Aún no has añadido ninguna dirección</span> :
                     <>{renderPostalAddresses()}</>
                 }

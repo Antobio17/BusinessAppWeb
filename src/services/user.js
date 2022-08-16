@@ -12,3 +12,19 @@ export const getPostalAddresses = () => {
         response => response.data.data
     );
 }
+
+export const setPostalAddress = (id, name, address, postalCode, population, province, state) => {
+    const params = {
+        postalAddressID: id,
+        name: name,
+        address: address,
+        postalCode: postalCode,
+        population: population,
+        province: province,
+        state: state,
+    }
+
+    return axios.post(webServiceURL + '/api/user/create/address', params, {withCredentials: true}).then(
+        response => response.data.data
+    );
+}
