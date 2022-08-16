@@ -8,15 +8,26 @@ import Loading from "../../common/components/Loading";
 import {getUserAppointments} from "../../services/appointment";
 import Appointment, {statusPending} from "./Appointment";
 import {pageTransition, pageVariants} from "../../App";
+import ReactPaginate from "react-paginate";
 
 function AppointmentTabPanel(props) {
     const [loading, setLoading] = useState(true);
     const [appointments, setAppointments] = useState(undefined);
 
+    // Appointments Pagination
+    const [page, setPage] = useState(0);
+    const limit = 6;
+    const offset = page * limit;
+    const displayItems = appointments !== undefined ? appointments.slice(offset, offset + limit) : undefined;
+
+    const onChangePage = ({selected}) => {
+        setPage(selected);
+    }
+
     const renderAppointments = () => {
         let render = [];
 
-        appointments.forEach(appointment => {
+        displayItems.forEach(appointment => {
             if (appointment.status !== statusPending) {
                 render.push(<Appointment key={appointment.id} appointment={appointment}/>);
             }
@@ -38,7 +49,7 @@ function AppointmentTabPanel(props) {
         }
 
         setLoading(appointments === undefined)
-    }, [appointments]);
+    }, [appointments, page]);
 
     return (
         <>
@@ -63,7 +74,17 @@ function AppointmentTabPanel(props) {
                             <h6 className="fw-bold text-center m-3">
                                 Aún no has reservado ninguna cita.
                             </h6> :
-                            <>{renderAppointments()}</>
+                            <>
+                                {renderAppointments()}
+                                <ReactPaginate
+                                    previousLabel={"Anterior"} nextLabel={"Siguiente"}
+                                    pageCount={Math.ceil(appointments.length / limit)}
+                                    onPageChange={onChangePage} containerClassName={"appointments-pagination"}
+                                    disabledClassName={"pagination-disabled-button"} activeClassName={"pagination-active"}
+                                    previousLinkClassName={"pagination-previous-button"}
+                                    nextLinkClassName={"pagination-next-button"}
+                                />
+                            </>
                         }
                     </motion.div>
                 )}
