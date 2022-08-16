@@ -17,13 +17,14 @@ import AppointmentTabPanel from "./components/AppointmentTabPanel";
 import OrderTabPanel from "./components/OrderTabPanel";
 import Loading from "../common/components/Loading";
 
-import {getUserData, getPostalAddresses} from "../services/user";
+import {getUserData} from "../services/user";
+import {getPendingUserAppointments} from "../services/appointment";
 
 function ProfilePage() {
     const [value, setValue] = useState(0);
     const [loading, setLoading] = useState(true);
     const [profileData, setProfileData] = useState(undefined);
-    const [postalAddresses, setPostalAddresses] = useState(undefined);
+    const [pendingAppointment, setPendingAppointment] = useState(undefined);
 
     const onChange = (e, newValue) => {
         setValue(newValue);
@@ -41,23 +42,21 @@ function ProfilePage() {
             });
         }
 
-        if (postalAddresses === undefined) {
+        if (pendingAppointment === undefined) {
             Promise.all([
-                getPostalAddresses()
+                getPendingUserAppointments()
             ]).then(response => {
                 const data = response.length > 0 ? response[0] : [];
-
-                let addresses = [];
-                // noinspection JSUnusedLocalSymbols
-                Object.entries(data).forEach(([key, pAddresses]) => {addresses.push(pAddresses)});
-                setPostalAddresses(addresses);
+                setPendingAppointment(data.length > 0 ? data[0] : null);
             }).catch(error => {
-                console.log('Error al recuperar las direcciones postales del usuario: ' + error);
+                console.log('Error al recuperar la configuración del horario del negocio: ' + error);
             });
         }
 
-        setLoading(profileData === undefined || postalAddresses === undefined);
-    }, [loading, profileData]);
+        setLoading(
+            profileData === undefined || pendingAppointment === undefined
+        );
+    }, [loading, profileData, pendingAppointment]);
 
     return (
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
@@ -78,9 +77,11 @@ function ProfilePage() {
                         </Tabs>
                         <TabPanel value={value} index={0}><ProfileTabPanel profileData={profileData}/></TabPanel>
                         <TabPanel value={value} index={1}>
-                            <PostalAddressTabPanel postalAddresses={postalAddresses}/>
+                            <PostalAddressTabPanel postalAddresses={profileData.postalAddresses}/>
                         </TabPanel>
-                        <TabPanel value={value} index={2}><AppointmentTabPanel/></TabPanel>
+                        <TabPanel value={value} index={2}>
+                            <AppointmentTabPanel pendingAppointment={pendingAppointment}/>
+                        </TabPanel>
                         <TabPanel value={value} index={3}><OrderTabPanel/></TabPanel>
                     </motion.div>
                 )}
