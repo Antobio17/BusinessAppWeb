@@ -4,6 +4,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import './css/appointment.scss'
 
 import {formatDate} from "../../services/tools";
+import {cancelUserBookedAppointment} from "../../services/appointment";
 
 export const statusPending = 0;
 export const statusCancelled = 1;
@@ -20,8 +21,16 @@ function Appointment(props) {
     const status = props.appointment.status;
     const classNameStatus = status === statusCancelled ?
         'text-danger' : status === statusDone ? 'text-success' : 'text-info';
+
     const onCancelAppointment = () => {
-        const id = props.appointment.id;
+        Promise.all([
+            cancelUserBookedAppointment(props.userEmail)
+        ]).then(response => {
+            const data = response.length > 0 ? response[0] : [];
+            props.onBookingCancelled(data.result);
+        }).catch(error => {
+            console.log('Error al recuperar la configuración del horario del negocio: ' + error);
+        });
     };
 
     return(

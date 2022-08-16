@@ -80,7 +80,8 @@ function ProfilePage() {
                             <PostalAddressTabPanel postalAddresses={profileData.postalAddresses}/>
                         </TabPanel>
                         <TabPanel value={value} index={2}>
-                            <AppointmentTabPanel pendingAppointment={pendingAppointment}/>
+                            <AppointmentTabPanel pendingAppointment={pendingAppointment} userEmail={profileData.email}
+                                                 setPendingAppointment={setPendingAppointment}/>
                         </TabPanel>
                         <TabPanel value={value} index={3}><OrderTabPanel/></TabPanel>
                     </motion.div>
