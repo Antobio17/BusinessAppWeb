@@ -80,7 +80,8 @@ function AppointmentTabPanel(props) {
                                     previousLabel={"Anterior"} nextLabel={"Siguiente"}
                                     pageCount={Math.ceil(appointments.length / limit)}
                                     onPageChange={onChangePage} containerClassName={"appointments-pagination"}
-                                    disabledClassName={"pagination-disabled-button"} activeClassName={"pagination-active"}
+                                    disabledClassName={"pagination-disabled-button"}
+                                    activeClassName={"pagination-active"}
                                     previousLinkClassName={"pagination-previous-button"}
                                     nextLinkClassName={"pagination-next-button"}
                                 />
