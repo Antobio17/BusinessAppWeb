@@ -14,7 +14,7 @@ import {pageTransition, pageVariants} from "../../App";
 import Alert from "react-bootstrap/Alert";
 
 function PostalAddressTabPanel(props) {
-
+    const [updating, setUpdating] = useState(false);
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
@@ -30,7 +30,7 @@ function PostalAddressTabPanel(props) {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        let hasError = false;
+        setUpdating(true);
         Promise.all([
             setPostalAddress(selectedID, name, address, postalCode, population, province, state)
         ]).then(response => {
@@ -43,19 +43,14 @@ function PostalAddressTabPanel(props) {
                         ' la dirección correctamente.',
                 });
             } else {
-                hasError = true;
+                setMessageAlert({'type': 'danger', 'message': 'Ha ocurrido un error. Inténtalo de nuevo.'});
             }
+            setUpdating(false);
         }).catch(error => {
             console.log('Error al establecer la dirección postal: ' + error);
-            hasError = true;
+            setMessageAlert({'type': 'danger', 'message': 'Ha ocurrido un error. Inténtalo de nuevo.'});
+            setUpdating(false);
         });
-
-        if (hasError) {
-            setMessageAlert({
-                'type': 'danger',
-                'message': 'Ha ocurrido un error. Inténtalo de nuevo.',
-            });
-        }
     };
 
     const renderPostalAddresses = () => {
@@ -122,7 +117,7 @@ function PostalAddressTabPanel(props) {
                     <div>
                         <PostalAddressForm name={name} setName={setName} address={address} setAddress={setAddress}
                                            neighborhood={neighborhood} setNeighborhood={setNeighborhood}
-                                           postalCode={postalCode} setPostalCode={setPostalCode}
+                                           postalCode={postalCode} setPostalCode={setPostalCode} updating={updating}
                                            population={population} setPopulation={setPopulation} btnLabel={btnLabel}
                                            province={province} setProvince={setProvince} state={state}
                                            setState={setState} selectedID={selectedID} onSubmit={onSubmit}/>

@@ -11,6 +11,7 @@ import {pageTransition, pageVariants} from "../../App";
 function ProfileTabPanel(props) {
     const {id, email, name, phoneNumber, surname} = props.profileData;
 
+    const [updating, setUpdating] = useState(false);
     const [emailS, setEmailS] = useState(email);
     const [nameS, setNameS] = useState(name);
     const [surnameS, setSurnameS] = useState(surname);
@@ -22,18 +23,21 @@ function ProfileTabPanel(props) {
     const submitUpdateForm = (e) => {
         e.preventDefault();
 
+        setUpdating(true);
         setMessageAlert(undefined);
-        if (password.length < 8) {
-            setMessageAlert({'type': 'warning', 'message': 'Las contraseña debe tener mínimo 8 caracteres.'})
+
+        if (password.length > 0 && password.length < 8) {
+            setMessageAlert({'type': 'warning', 'message': 'Las contraseña debe tener mínimo 8 caracteres.'});
+            setUpdating(false);
         } else if (password !== passwordCompare) {
-            setMessageAlert({'type': 'danger', 'message': 'Las contraseñas no coincide. Inténtalo de nuevo.'})
+            setMessageAlert({'type': 'danger', 'message': 'Las contraseñas no coincide. Inténtalo de nuevo.'});
+            setUpdating(false);
         } else {
             Promise.all([
                 updateUserData(emailS, nameS, surnameS, phoneNumberS, password)
             ]).then(response => {
                 const data = response.length > 0 ? response[0] : [];
 
-                console.log(data);
                 if (data.data && data.code === 202) {
                     setMessageAlert({'type': 'success', 'message': 'Has actualizado tu perfil con éxito.'})
                 } else if (data.code === 61) {
@@ -41,9 +45,11 @@ function ProfileTabPanel(props) {
                 } else {
                     setMessageAlert({'type': 'danger', 'message': 'Ha ocurrido un error. Inténtalo de nuevo.'})
                 }
+                setUpdating(false);
             }).catch(error => {
                 console.log('Error al actualizar los datos de usuario: ' + error);
                 setMessageAlert({'type': 'danger', 'message': 'Ha ocurrido un error. Inténtalo de nuevo.'})
+                setUpdating(false);
             });
         }
     };
@@ -80,7 +86,12 @@ function ProfileTabPanel(props) {
                            onChange={(e) => setPhoneNumberS(e.target.value)} required/>
                 </div>
                 <input type="hidden" name="id" value={id}/>
-                <input className="btn btn-profile custom-btn" type="submit" name="" value="Actualizar"/>
+                {updating ?
+                    <div className="login-loader">
+                        <div className="lds-dual-ring"/>
+                    </div> :
+                    <input className="btn btn-profile custom-btn" type="submit" name="" value="Actualizar"/>
+                }
             </form>
         </>
     );
