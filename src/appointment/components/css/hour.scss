@@ -20,11 +20,46 @@
   }
 
   .btn-appointment-disabled {
-    border: 3px solid rgb(220,53,69);
-    color: rgb(220,53,69);
+    border: 3px solid rgb(220, 53, 69);
+    color: rgb(220, 53, 69);
+  }
+
+  .login-loader {
+    margin: 0 30px;
+
+    .lds-dual-ring {
+      margin: 0;
+
+      &::after {
+        margin: -10px;
+      }
+    }
   }
 }
 
+@media only screen and (max-width: 700px) {
+  .hour {
+    .login-loader {
+      margin: 0 70px;
+
+      .lds-dual-ring {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  .hour {
+    .login-loader {
+      margin: 0 40px;
+
+      .lds-dual-ring {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
 
 @media only screen and (max-width: 360px) {
   .hour {
@@ -33,6 +68,10 @@
     .btn-appointment {
       margin-top: 15px;
       min-width: 90%;
+    }
+
+    .login-loader {
+      margin: 10px 40px;
     }
   }
 }
