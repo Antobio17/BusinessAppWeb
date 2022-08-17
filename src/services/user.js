@@ -28,3 +28,17 @@ export const setPostalAddress = (id, name, address, postalCode, population, prov
         response => response.data.data
     );
 }
+
+export const updateUserData = (email, name, surname, phoneNumber, password) => {
+    const params = {
+        email: email,
+        name: name,
+        surname: surname,
+        phoneNumber: phoneNumber,
+        password: password,
+    }
+
+    return axios.post(webServiceURL + '/api/user/update', params, {withCredentials: true}).then(
+        response => response.data
+    );
+}
