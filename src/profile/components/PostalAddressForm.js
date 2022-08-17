@@ -25,7 +25,12 @@ function PostalAddressForm(props) {
                 <input type="text" name="state" placeholder="País..." value={props.state}
                        onChange={(e) => props.setState(e.target.value)} required/>
                 {props.selectedID !== undefined && <input type="hidden" name="id" value={props.selectedID}/>}
-                <input className="btn btn-profile custom-btn" type="submit" name="submit" value={props.btnLabel}/>
+                {props.updating ?
+                    <div className="login-loader">
+                        <div className="lds-dual-ring"/>
+                    </div> :
+                    <input className="btn btn-profile custom-btn" type="submit" name="submit" value={props.btnLabel}/>
+                }
             </div>
         </form>
     );
