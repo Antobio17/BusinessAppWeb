@@ -14,6 +14,8 @@ import {pageTransition, pageVariants} from "../../App";
 import Alert from "react-bootstrap/Alert";
 
 function PostalAddressTabPanel(props) {
+    const maxAddresses = 5;
+
     const [updating, setUpdating] = useState(false);
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
@@ -100,6 +102,7 @@ function PostalAddressTabPanel(props) {
                     </Alert>
                 </motion.div>
                 }
+                {maxAddresses > Object.keys(props.postalAddresses).length &&
                 <button className="btn btn-profile custom-btn" onClick={() => {
                     setOpen(true);
                     setBtnLabel('Crear');
@@ -113,6 +116,7 @@ function PostalAddressTabPanel(props) {
                 }}>
                     Nueva <HomeIcon/>
                 </button>
+                }
                 <Collapse in={open}>
                     <div>
                         <PostalAddressForm name={name} setName={setName} address={address} setAddress={setAddress}
@@ -129,7 +133,7 @@ function PostalAddressTabPanel(props) {
             </section>
             <section className="postal-address-list text-center">
                 <h5>Tus direcciones</h5>
-                {props.postalAddresses.length === 0 ?
+                {Object.keys(props.postalAddresses).length === 0 ?
                     <span className="fw-bold">Aún no has añadido ninguna dirección</span> :
                     <>{renderPostalAddresses()}</>
                 }
