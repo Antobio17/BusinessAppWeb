@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {motion} from 'framer-motion';
+import ReactPaginate from 'react-paginate';
+import Alert from 'react-bootstrap/Alert';
 
 import './css/appointment-tab-panel.scss'
 
-import Loading from "../../common/components/Loading";
+import Loading from '../../common/components/Loading';
 
-import {getUserAppointments} from "../../services/appointment";
-import Appointment, {statusPending} from "./Appointment";
-import {pageTransition, pageVariants} from "../../App";
-import ReactPaginate from "react-paginate";
-import Alert from "react-bootstrap/Alert";
+import {getUserAppointments, statusPending} from '../../services/appointment';
+import Appointment from './Appointment';
+import {pageTransition, pageVariants} from '../../App';
 
 function AppointmentTabPanel(props) {
     const [loading, setLoading] = useState(true);
@@ -22,7 +22,6 @@ function AppointmentTabPanel(props) {
     const limit = 6;
     const offset = page * limit;
     const displayItems = appointments !== undefined ? appointments.slice(offset, offset + limit) : undefined;
-
     const onChangePage = ({selected}) => {
         setPage(selected);
     }
@@ -76,7 +75,7 @@ function AppointmentTabPanel(props) {
         <>
             <section className="profile-tab-header">
                 <h4>Tus citas</h4>
-                <p>Puedes ver tu historial de citas aquí.</p>
+                <p>Puedes ver tu historial de citas junto a su estado aquí.</p>
             </section>
             <section className="pending-appointment">
                 {messageAlert !== undefined &&

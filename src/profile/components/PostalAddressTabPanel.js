@@ -89,7 +89,7 @@ function PostalAddressTabPanel(props) {
                 <h4>Direcciones de envío</h4>
                 <p>
                     Puedes ver todas tus direcciones de envío desde aquí. Además podrás crear nuevas y editar
-                    las existentes
+                    las existentes.
                 </p>
             </section>
             <section className="postal-address-new text-center">
