@@ -1,0 +1,47 @@
+//noinspection DuplicatedCode
+.order {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  box-shadow: 0 0 20px #a9a9a9;
+
+  p {
+    margin: 0;
+    padding: 0 20px;
+  }
+
+  .btn-profile {
+    margin: 0 !important;
+
+    &:hover {
+      background: rgb(220, 53, 69) !important;
+    }
+  }
+
+  .lds-dual-ring {
+    margin: 5px 0 0;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .order {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+
+    .btn-profile {
+      margin: 10px auto !important;
+    }
+
+    .uuid-date-container {
+      text-align: center !important;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  }
+}
