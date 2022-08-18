@@ -18,7 +18,7 @@ import OrderTabPanel from "./components/OrderTabPanel";
 import Loading from "../common/components/Loading";
 
 import {getUserData} from "../services/user";
-import {getPendingUserAppointments} from "../services/appointment";
+import {getUserPendingAppointments} from "../services/appointment";
 
 function ProfilePage() {
     const [value, setValue] = useState(0);
@@ -44,7 +44,7 @@ function ProfilePage() {
 
         if (pendingAppointment === undefined) {
             Promise.all([
-                getPendingUserAppointments()
+                getUserPendingAppointments()
             ]).then(response => {
                 const data = response.length > 0 ? response[0] : [];
                 setPendingAppointment(data.length > 0 ? data[0] : null);

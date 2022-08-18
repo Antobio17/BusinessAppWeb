@@ -1,6 +1,10 @@
 import axios from "axios";
 import {webServiceURL} from "../App";
 
+export const statusPending = 0;
+export const statusCancelled = 1;
+export const statusDone = 2;
+
 export const getScheduleConfig = () => {
     return axios.post(
         webServiceURL + '/api/business/config/schedule/get', {}, {withCredentials: true}
@@ -23,7 +27,7 @@ export const getPendingAppointments = (startDate, endDate) => {
     );
 }
 
-export const getPendingUserAppointments = () => {
+export const getUserPendingAppointments = () => {
     return getUserAppointments(0);
 }
 

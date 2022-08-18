@@ -11,7 +11,7 @@ import Loading from '../common/components/Loading';
 import SelectedDay from './components/SelectedDay';
 
 import {formatDate} from '../services/tools';
-import {getPendingUserAppointments, getScheduleConfig} from '../services/appointment';
+import {getUserPendingAppointments, getScheduleConfig} from '../services/appointment';
 
 function AppointmentPage() {
     const date = new Date();
@@ -58,7 +58,7 @@ function AppointmentPage() {
 
         if (hasPendingAppointment === undefined) {
             Promise.all([
-                getPendingUserAppointments()
+                getUserPendingAppointments()
             ]).then(response => {
                 const data = response.length > 0 ? response[0] : [];
 
