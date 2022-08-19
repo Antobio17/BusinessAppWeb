@@ -29,6 +29,16 @@ export const setPostalAddress = (id, name, address, postalCode, population, prov
     );
 }
 
+export const deletePostalAddress = (id) => {
+    const params = {
+        postalAddressID: id,
+    }
+
+    return axios.post(webServiceURL + '/api/user/delete/address', params, {withCredentials: true}).then(
+        response => response.data.data
+    );
+}
+
 export const updateUserData = (email, name, surname, phoneNumber, password) => {
     const params = {
         email: email,

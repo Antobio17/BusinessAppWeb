@@ -1,4 +1,5 @@
 import React from 'react';
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import './css/postal-address-form.scss';
 
@@ -29,7 +30,18 @@ function PostalAddressForm(props) {
                     <div className="login-loader">
                         <div className="lds-dual-ring"/>
                     </div> :
-                    <input className="btn btn-profile custom-btn" type="submit" name="submit" value={props.btnLabel}/>
+                    <div>
+                        <input className="btn btn-profile custom-btn" type="submit" name="submit"
+                               value={props.btnLabel}/>
+                        {props.selectedID !== undefined &&
+                        <button className="btn btn-profile custom-btn btn-delete"
+                                onClick={(e) => {
+                                    props.onDelete(e, props.selectedID)
+                                }}>
+                            <DeleteIcon/>
+                        </button>
+                        }
+                    </div>
                 }
             </div>
         </form>

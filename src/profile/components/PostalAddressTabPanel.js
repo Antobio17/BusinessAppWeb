@@ -9,7 +9,7 @@ import './css/postal-address-tap-panel.scss';
 
 import PostalAddressForm from "./PostalAddressForm";
 
-import {setPostalAddress} from "../../services/user";
+import {setPostalAddress, deletePostalAddress} from "../../services/user";
 import {pageTransition, pageVariants} from "../../App";
 import Alert from "react-bootstrap/Alert";
 
@@ -28,6 +28,7 @@ function PostalAddressTabPanel(props) {
     const [btnLabel, setBtnLabel] = useState('Crear');
     const [selectedID, setSelectedID] = useState(undefined);
     const [messageAlert, setMessageAlert] = useState(undefined);
+    const [deletedIDs, setDeletedIDs] = useState([]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -55,29 +56,56 @@ function PostalAddressTabPanel(props) {
         });
     };
 
+    const onDelete = (e, postalAddressID) => {
+        e.preventDefault();
+
+        setUpdating(true);
+        Promise.all([
+            deletePostalAddress(postalAddressID)
+        ]).then(response => {
+            const data = response.length > 0 ? response[0] : [];
+
+            if (data) {
+                const auxIDs = deletedIDs.slice();
+                auxIDs.push(postalAddressID);
+                setDeletedIDs(auxIDs);
+                setMessageAlert({'type': 'success', 'message': 'Has eliminado la dirección correctamente.'});
+            } else {
+                setMessageAlert({'type': 'danger', 'message': 'Ha ocurrido un error. Inténtalo de nuevo.'});
+            }
+            setUpdating(false);
+        }).catch(error => {
+            console.log('Error al establecer la dirección postal: ' + error);
+            setMessageAlert({'type': 'danger', 'message': 'Ha ocurrido un error. Inténtalo de nuevo.'});
+            setUpdating(false);
+        });
+    };
+
     const renderPostalAddresses = () => {
         let render = [];
 
         Object.entries(props.postalAddresses).forEach(([key, postalAddress]) => {
-            render.push(
-                <article key={key} className="postal-address-item">
-                    <p className="fw-bold">{postalAddress.name}</p>
-                    <button className="btn btn-profile custom-btn" onClick={() => {
-                        setOpen(true);
-                        setBtnLabel('Editar');
-                        // Setting form values
-                        setSelectedID(key);
-                        setName(postalAddress.name);
-                        setAddress(postalAddress.address);
-                        setPostalCode(postalAddress.postalCode);
-                        setPopulation(postalAddress.population);
-                        setProvince(postalAddress.province);
-                        setState(postalAddress.state);
-                    }}>
-                        <CreateIcon/>
-                    </button>
-                </article>
-            );
+            if (!deletedIDs.includes(key)){
+                render.push(
+                    <article key={key} className="postal-address-item">
+                        <p className="fw-bold">{postalAddress.name}</p>
+                        <button className="btn btn-profile custom-btn" onClick={() => {
+                            setOpen(true);
+                            setBtnLabel('Editar');
+                            // Setting form values
+                            setSelectedID(key);
+                            setName(postalAddress.name);
+                            setAddress(postalAddress.address);
+                            setPostalCode(postalAddress.postalCode);
+                            setPopulation(postalAddress.population);
+                            setProvince(postalAddress.province);
+                            setState(postalAddress.state);
+                        }}>
+                            <CreateIcon/>
+                        </button>
+                    </article>
+                );
+            }
         });
 
         return render;
@@ -124,7 +152,8 @@ function PostalAddressTabPanel(props) {
                                            postalCode={postalCode} setPostalCode={setPostalCode} updating={updating}
                                            population={population} setPopulation={setPopulation} btnLabel={btnLabel}
                                            province={province} setProvince={setProvince} state={state}
-                                           setState={setState} selectedID={selectedID} onSubmit={onSubmit}/>
+                                           setState={setState} selectedID={selectedID} onSubmit={onSubmit}
+                                           onDelete={onDelete}/>
                         <KeyboardArrowUpIcon className="close-icon" onClick={() => {
                             setOpen(false)
                         }}/>
