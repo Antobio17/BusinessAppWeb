@@ -26,4 +26,14 @@
   .btn-profile {
     margin-top: 5px !important;
   }
+
+  .btn-delete {
+    margin: 5px 0 0 5px !important;
+    width: 50px !important;
+    padding: 9px !important;
+
+    &:hover {
+      background: rgb(220, 53, 69) !important;
+    }
+  }
 }
