@@ -54,7 +54,7 @@ function HomePage() {
                         <section className="row section-presentation">
                             <div className="col-12 col-md-4 col-lg-3 text-center">
                                 <img src={webServiceURL + '/images/' + introData.imageSrc}
-                                    alt={introData.bossName} width="300" height="300"/>
+                                     alt={introData.bossName} width="300" height="300"/>
                             </div>
                             <div className="col-12 col-md-6 col-lg-9 mt-5  mt-md-auto presentation-container">
                                 <span className="title">¿Quién es {introData.bossName}?</span>
@@ -68,9 +68,10 @@ function HomePage() {
                                     Object.keys(socialData.images).map((key) => (
                                         <InstagramImageBox
                                             key={key}
-                                            src={webServiceURL + '/images/' + socialData.images[key]}
-                                            alt="Imagen Instagram"
-                                            width="300" height="300"
+                                            src={webServiceURL + '/images/' + socialData.images[key].image.name}
+                                            alt={socialData.images[key].image.alt}
+                                            width={socialData.images[key].image.width}
+                                            height={socialData.images[key].image.height}
                                         />
                                     ))
                                 }
@@ -82,9 +83,12 @@ function HomePage() {
                                 {
                                     Object.keys(servicesData).map((key) => (
                                         <ServiceBox
-                                            key={key} alt="Servicio" width="60" height="60"
-                                            imageSrc={webServiceURL + '/images/' + servicesData[key].imageSrc}
-                                            title={servicesData[key].title} description={servicesData[key].description}
+                                            key={key} alt={servicesData[key].image.alt}
+                                            width={servicesData[key].image.width}
+                                            height={servicesData[key].image.height}
+                                            imageSrc={webServiceURL + '/images/' + servicesData[key].image.name}
+                                            title={servicesData[key].title}
+                                            description={servicesData[key].description}
                                         />
                                     ))
                                 }
@@ -105,7 +109,8 @@ function HomePage() {
                                     <span className="m-1" key={key}>
                                         <strong>{formatDay(key)}: </strong> |
                                         {Object.keys(contactData.businessHours[key]).map((index) => (
-                                            <span key={index}> {contactData.businessHours[key][index].opensAt} a {contactData.businessHours[key][index].closesAt} |</span>
+                                            <span
+                                                key={index}> {contactData.businessHours[key][index].opensAt} a {contactData.businessHours[key][index].closesAt} |</span>
                                         ))}
                                     </span>
                                 ))}
