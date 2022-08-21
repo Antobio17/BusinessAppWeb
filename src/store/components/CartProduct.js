@@ -7,13 +7,13 @@ import {webServiceURL} from "../../App";
 import './css/cart-product.scss';
 
 function CartProduct(props) {
-    const {id, src, name, amount, quantity} = props.product;
+    const {id, image, name, amount, quantity} = props.product;
     const canDelete = quantity > 1;
 
     return (
         <div key={id} className="row align-items-center cart-product">
             <div className="col-12 col-md-2">
-                <img src={webServiceURL + '/images/' + src} alt="ShopProductCart" width="80" height="70"/>
+                <img src={webServiceURL + '/images/' + image.name} alt={image.alt} width="80" height="70"/>
             </div>
             <div className="col-12 col-md-6"><span className="cart-product-name">{name}</span></div>
             <div className="row col-12 col-md-4">
