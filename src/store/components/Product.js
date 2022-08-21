@@ -5,11 +5,12 @@ import './css/product.scss';
 import '../../common/components/css/button.scss';
 
 function Product(props) {
-    const {amount, src, name, stock} = props.product;
+    const {amount, name, stock, image} = props.product;
 
     return (
         <article className="col-12 col-md-4 col-lg-4 product">
-            <img src={webServiceURL + '/images/' + src} alt="Producto" width="230" height="200"/>
+            <img src={webServiceURL + '/images/' + image.name} alt={image.alt} width={image.width}
+                 height={image.height}/>
             <p><span className="name">{name}</span></p>
             <p><span className="amount">{amount}€</span></p>
             {stock > 0 ?
