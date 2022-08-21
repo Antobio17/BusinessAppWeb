@@ -53,8 +53,9 @@ function HomePage() {
                                 transition={pageTransition}>
                         <section className="row section-presentation">
                             <div className="col-12 col-md-4 col-lg-3 text-center">
-                                <img src={webServiceURL + '/images/' + introData.imageSrc}
-                                     alt={introData.bossName} width="300" height="300"/>
+                                <img src={webServiceURL + '/images/' + introData.image.name}
+                                     alt={introData.image.alt}
+                                     width={introData.image.width} height={introData.image.height}/>
                             </div>
                             <div className="col-12 col-md-6 col-lg-9 mt-5  mt-md-auto presentation-container">
                                 <span className="title">¿Quién es {introData.bossName}?</span>
