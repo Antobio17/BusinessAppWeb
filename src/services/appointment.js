@@ -43,9 +43,10 @@ export const getUserAppointments = (status) => {
     );
 }
 
-export const bookUserAppointment = (bookingDateAt) => {
+export const bookUserAppointment = (bookingDateAt, phoneNumber) => {
     const params = {
         bookingDateAt: bookingDateAt,
+        phoneNumber: phoneNumber,
     };
 
     return axios.post(

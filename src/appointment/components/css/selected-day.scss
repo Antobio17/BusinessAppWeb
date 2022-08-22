@@ -21,6 +21,7 @@
         .alert,
         .closes-title,
         .shift-title,
+        input[type="tel"],
         .loading {
           grid-column: span 2;
         }
@@ -33,6 +34,26 @@
         .closes-title {
           margin-top: 60px;
           text-align: center;
+        }
+
+        //noinspection DuplicatedCode
+        input[type="tel"] {
+          background: none;
+          display: block;
+          margin: 20px auto;
+          text-align: center;
+          border: 3px solid var(--secondary);
+          padding: 10px 10px;
+          width: 350px;
+          outline: none;
+          color: var(--secondary);
+          border-radius: 24px;
+          transition: 0.25s;
+
+          &:focus {
+            width: 360px;
+            border-color: var(--primary);
+          }
         }
       }
     }
@@ -61,6 +82,7 @@
           .alert,
           .closes-title,
           .shift-title,
+          input[type="tel"],
           .loading {
             grid-column: span 1;
           }
