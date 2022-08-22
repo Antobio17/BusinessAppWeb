@@ -21,6 +21,9 @@ function SelectedDay(props) {
 
     const [loading, setLoading] = useState(true);
     const [pendingAppointments, setPendingAppointments] = useState([]);
+    const [messageAlert, setMessageAlert] = useState(undefined);
+
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     const getRenderHours = () => {
         let render = [], hour;
@@ -33,7 +36,9 @@ function SelectedDay(props) {
                     render.push(
                         <Hour key={hour} hour={hour} day={props.selectedDay} onBookingMade={props.onBookingMade}
                               available={countAppearances(pendingAppointments, hour) < props.numWorkers}
-                              hasPendingAppointment={props.hasPendingAppointment}/>
+                              hasPendingAppointment={props.hasPendingAppointment && !props.isWorker}
+                              isWorker={props.isWorker} phoneNumber={phoneNumber}
+                              setMessageAlert={setMessageAlert}/>
                     );
                     hour = incrementHour(hour, appointmentDuration);
                 } while (isGreaterThan(closesAt, hour));
@@ -67,7 +72,7 @@ function SelectedDay(props) {
         } else {
             setLoading(false);
         }
-    }, [props.selectedDay]);
+    }, [props.selectedDay, messageAlert]);
 
     return (
         <Modal show={props.show} onHide={() => {
@@ -85,10 +90,28 @@ function SelectedDay(props) {
                     <Loading/> :
                     <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
                                 transition={pageTransition} className="select-day-appointments-container">
-                        {props.hasPendingAppointment &&
-                        <Alert key={'warning'} variant={'warning'}>
-                            <strong>No puedes reservar cita debido a que ya tienes una pendiente, revisa tu perfil</strong>
-                        </Alert>
+                        {props.isWorker ?
+                            <>
+                                <input type="tel" name="name" placeholder="Teléfono del cliente..." value={phoneNumber}
+                                       className="input-user-phone-number"
+                                       onChange={(e) => setPhoneNumber(e.target.value)}/>
+                                {messageAlert !== undefined &&
+                                <Alert key={messageAlert.type} variant={messageAlert.type}
+                                       onClose={() => setMessageAlert(undefined)} dismissible>
+                                    <strong>{messageAlert.text}</strong>
+                                </Alert>
+                                }
+                            </> :
+                            <>
+                                {props.hasPendingAppointment &&
+                                <Alert key={'warning'} variant={'warning'}>
+                                    <strong>
+                                        No puedes reservar cita debido a que ya tienes una pendiente,
+                                        revisa tu perfil
+                                    </strong>
+                                </Alert>
+                                }
+                            </>
                         }
                         {getRenderHours()}
                     </motion.div>

@@ -13,19 +13,37 @@ function Hour(props) {
         const bookingDateAt = day.setHours(splitHour[0], splitHour[1], splitHour[2]) / 1000;
 
         setBooking(true);
-        Promise.all([
-            bookUserAppointment(bookingDateAt)
-        ]).then(response => {
-            const data = response.length > 0 ? response[0] : [];
+        if (props.isWorker && props.phoneNumber.length === 0) {
+            props.setMessageAlert({
+                'type': 'danger',
+                'text': 'El teléfono del cliente no puede estar vacío.',
+            });
+            setBooking(false);
+        } else {
+            Promise.all([
+                bookUserAppointment(bookingDateAt, props.phoneNumber.length > 0 ? props.phoneNumber.length : null)
+            ]).then(response => {
+                const data = response.length > 0 ? response[0] : [];
 
-            if (data.result) {
-                props.onBookingMade();
-            }
-            setBooking(false);
-        }).catch(error => {
-            console.log('Error al recuperar la configuración del horario del negocio: ' + error);
-            setBooking(false);
-        });
+                if (data.result) {
+                    props.onBookingMade();
+                } else {
+                    props.setMessageAlert({
+                        'type': 'danger',
+                        'text': 'Ha ocurrido un error al intentar reservar la cita.',
+                    });
+                }
+                setBooking(false);
+            }).catch(error => {
+                console.log('Error al recuperar al realizar la reserva de la cita: ' + error);
+                props.setMessageAlert({
+                    'type': 'danger',
+                    'text': 'Ha ocurrido un error al intentar reservar la cita.',
+                });
+                setBooking(false);
+            });
+        }
+
     };
 
     return (
@@ -36,7 +54,8 @@ function Hour(props) {
                         <div className="login-loader">
                             <div className="lds-dual-ring"/>
                         </div> :
-                        <button className="btn btn-appointment custom-btn col-6 fw-bold" onClick={() => bookAppointment()}>
+                        <button className="btn btn-appointment custom-btn col-6 fw-bold"
+                                onClick={() => bookAppointment()}>
                             Reservar
                         </button>
                 ) :

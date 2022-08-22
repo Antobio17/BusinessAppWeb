@@ -22,6 +22,7 @@ function AppointmentPage() {
     const [loading, setLoading] = useState(true);
     const [shifts, setShifts] = useState(undefined);
     const [numWorkers, setNumWorkers] = useState(undefined);
+    const [isWorker, setIsWorker] = useState(undefined);
     const [selectedDay, setSelectedDay] = useState(undefined);
     const [appointmentDuration, setAppointmentDuration] = useState(undefined);
     const [selectedDayFormatted, setSelectedDayFormatted] = useState(undefined);
@@ -42,7 +43,8 @@ function AppointmentPage() {
     }
 
     useEffect(() => {
-        if (shifts === undefined || appointmentDuration === undefined || numWorkers === undefined) {
+        if (shifts === undefined || appointmentDuration === undefined
+            || numWorkers === undefined || isWorker === undefined) {
             Promise.all([
                 getScheduleConfig()
             ]).then(response => {
@@ -51,6 +53,7 @@ function AppointmentPage() {
                 setShifts('shifts' in data ? data.shifts : undefined);
                 setAppointmentDuration('appointmentDuration' in data ? data.appointmentDuration : undefined);
                 setNumWorkers('numWorkers' in data ? data.numWorkers : undefined);
+                setIsWorker('isWorker' in data ? data.isWorker : undefined);
             }).catch(error => {
                 console.log('Error al recuperar la configuración del horario del negocio: ' + error);
             });
@@ -94,7 +97,8 @@ function AppointmentPage() {
                         <SelectedDay appointmentDuration={appointmentDuration} onBookingMade={onBookingMade}
                                      show={show} setShow={setShow} selectedDay={selectedDay}
                                      selectedDayFormatted={selectedDayFormatted} shifts={shifts}
-                                     hasPendingAppointment={hasPendingAppointment} numWorkers={numWorkers}/>
+                                     hasPendingAppointment={hasPendingAppointment} numWorkers={numWorkers}
+                                    isWorker={isWorker}/>
                         }
                     </motion.div>
                 )}
