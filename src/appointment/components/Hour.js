@@ -21,7 +21,7 @@ function Hour(props) {
             setBooking(false);
         } else {
             Promise.all([
-                bookUserAppointment(bookingDateAt, props.phoneNumber.length > 0 ? props.phoneNumber.length : null)
+                bookUserAppointment(bookingDateAt, props.phoneNumber.length > 0 ? props.phoneNumber : null)
             ]).then(response => {
                 const data = response.length > 0 ? response[0] : [];
 
