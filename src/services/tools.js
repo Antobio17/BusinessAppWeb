@@ -82,3 +82,14 @@ export const countAppearances = (array, value) => {
 
     return counter;
 }
+
+/**
+ * Validates the phone number specified.
+ *
+ * @param phoneNumber The phone number to validate.
+ *
+ * @returns {boolean}
+ */
+export const validatePhoneNumber = (phoneNumber) => {
+    return phoneNumber.match('^[0-9]{9}$');
+}

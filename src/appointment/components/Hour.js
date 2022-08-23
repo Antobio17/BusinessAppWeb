@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import './css/hour.scss';
 
 import {bookUserAppointment} from '../../services/appointment';
+import {validatePhoneNumber} from "../../services/tools";
 
 function Hour(props) {
     const [booking, setBooking] = useState(false);
@@ -13,10 +14,10 @@ function Hour(props) {
         const bookingDateAt = day.setHours(splitHour[0], splitHour[1], splitHour[2]) / 1000;
 
         setBooking(true);
-        if (props.isWorker && props.phoneNumber.length === 0) {
+        if (props.isWorker && !validatePhoneNumber(props.phoneNumber)) {
             props.setMessageAlert({
                 'type': 'danger',
-                'text': 'El teléfono del cliente no puede estar vacío.',
+                'text': 'El teléfono no tiene un formato válido.',
             });
             setBooking(false);
         } else {
@@ -43,7 +44,6 @@ function Hour(props) {
                 setBooking(false);
             });
         }
-
     };
 
     return (
