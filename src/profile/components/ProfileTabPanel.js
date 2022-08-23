@@ -6,6 +6,7 @@ import './css/profile-tab-panel.scss';
 
 import {updateUserData} from "../../services/user";
 import {pageTransition, pageVariants} from "../../App";
+import {validatePhoneNumber} from "../../services/tools";
 
 
 function ProfileTabPanel(props) {
@@ -32,6 +33,9 @@ function ProfileTabPanel(props) {
         } else if (password !== passwordCompare) {
             setMessageAlert({'type': 'danger', 'message': 'Las contraseñas no coincide. Inténtalo de nuevo.'});
             setUpdating(false);
+        } else if (!validatePhoneNumber(phoneNumberS)) {
+                setMessageAlert({'type': 'danger', 'message': 'El formato de teléfono no es válido'});
+                setUpdating(false);
         } else {
             Promise.all([
                 updateUserData(emailS, nameS, surnameS, phoneNumberS, password)
