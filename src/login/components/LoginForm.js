@@ -7,9 +7,9 @@ function LoginForm(props) {
     return (
         <form onSubmit={(e) => props.submitLoginForm(e)} className="login-form">
             <input type="text" name="email" placeholder="Email"
-                   onChange={(e) => props.setEmail(e.target.value)}/>
+                   onChange={(e) => props.setEmail(e.target.value)} required/>
             <input type="password" name="password" placeholder="Contraseña"
-                   onChange={(e) => props.setPassword(e.target.value)}/>
+                   onChange={(e) => props.setPassword(e.target.value)} required/>
             {props.message !== undefined && <span className="mb-2 fw-bold text-danger">{props.message}</span>}
             <a className="forgot-href" href="#">¿Has olvidado tu contraseña?</a>
             {props.checking ?

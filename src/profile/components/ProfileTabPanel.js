@@ -7,6 +7,7 @@ import './css/profile-tab-panel.scss';
 import {updateUserData} from "../../services/user";
 import {pageTransition, pageVariants} from "../../App";
 import {validatePhoneNumber} from "../../services/tools";
+import ProfileDataForm from "./ProfileDataForm";
 
 
 function ProfileTabPanel(props) {
@@ -34,8 +35,8 @@ function ProfileTabPanel(props) {
             setMessageAlert({'type': 'danger', 'message': 'Las contraseñas no coincide. Inténtalo de nuevo.'});
             setUpdating(false);
         } else if (!validatePhoneNumber(phoneNumberS)) {
-                setMessageAlert({'type': 'danger', 'message': 'El formato de teléfono no es válido'});
-                setUpdating(false);
+            setMessageAlert({'type': 'danger', 'message': 'El formato de teléfono no es válido'});
+            setUpdating(false);
         } else {
             Promise.all([
                 updateUserData(emailS, nameS, surnameS, phoneNumberS, password)
@@ -72,31 +73,36 @@ function ProfileTabPanel(props) {
                 </Alert>
             </motion.div>
             }
-            <form onSubmit={(e) => submitUpdateForm(e)} className="profile-data-form row">
-                <div className="col-12 col-md-6">
-                    <input type="text" name="email" placeholder="Email..." value={emailS}
-                           onChange={(e) => setEmailS(e.target.value)} required/>
-                    <input type="password" name="password" placeholder="Contraseña..."
-                           onChange={(e) => setPassword(e.target.value)}/>
-                    <input type="password" name="password-compare" placeholder="Repite la contraseña..."
-                           onChange={(e) => setPasswordCompare(e.target.value)}/>
-                </div>
-                <div className="col-12 col-md-6">
-                    <input type="text" name="name" placeholder="Nombre..." value={nameS}
-                           onChange={(e) => setNameS(e.target.value)} required/>
-                    <input type="text" name="surname" placeholder="Apellidos..." value={surnameS}
-                           onChange={(e) => setSurnameS(e.target.value)} required/>
-                    <input type="text" name="phoneNumber" placeholder="Teléfono..." value={phoneNumberS}
-                           onChange={(e) => setPhoneNumberS(e.target.value)} required/>
-                </div>
-                <input type="hidden" name="id" value={id}/>
-                {updating ?
-                    <div className="login-loader">
-                        <div className="lds-dual-ring"/>
-                    </div> :
-                    <input className="btn btn-profile custom-btn" type="submit" name="" value="Actualizar"/>
-                }
-            </form>
+            <ProfileDataForm submitForm={submitUpdateForm} email={emailS} setEmail={setEmailS}
+                             setPassword={setPassword} setPasswordCompare={setPasswordCompare}
+                             name={nameS} setName={setNameS} surname={surnameS} setSurname={setSurnameS}
+                             phoneNumber={phoneNumberS} setPhoneNumber={setPhoneNumberS} updating={updating}
+                             btnLabel={"Actualizar"} id={id}/>
+            {/*<form onSubmit={(e) => submitUpdateForm(e)} className="profile-data-form row">*/}
+            {/*    <div className="col-12 col-md-6">*/}
+            {/*        <input type="text" name="email" placeholder="Email..." value={emailS}*/}
+            {/*               onChange={(e) => setEmailS(e.target.value)} required/>*/}
+            {/*        <input type="password" name="password" placeholder="Contraseña..."*/}
+            {/*               onChange={(e) => setPassword(e.target.value)}/>*/}
+            {/*        <input type="password" name="password-compare" placeholder="Repite la contraseña..."*/}
+            {/*               onChange={(e) => setPasswordCompare(e.target.value)}/>*/}
+            {/*    </div>*/}
+            {/*    <div className="col-12 col-md-6">*/}
+            {/*        <input type="text" name="name" placeholder="Nombre..." value={nameS}*/}
+            {/*               onChange={(e) => setNameS(e.target.value)} required/>*/}
+            {/*        <input type="text" name="surname" placeholder="Apellidos..." value={surnameS}*/}
+            {/*               onChange={(e) => setSurnameS(e.target.value)} required/>*/}
+            {/*        <input type="text" name="phoneNumber" placeholder="Teléfono..." value={phoneNumberS}*/}
+            {/*               onChange={(e) => setPhoneNumberS(e.target.value)} required/>*/}
+            {/*    </div>*/}
+            {/*    <input type="hidden" name="id" value={id}/>*/}
+            {/*    {updating ?*/}
+            {/*        <div className="login-loader">*/}
+            {/*            <div className="lds-dual-ring"/>*/}
+            {/*        </div> :*/}
+            {/*        <input className="btn btn-profile custom-btn" type="submit" name="" value="Actualizar"/>*/}
+            {/*    }*/}
+            {/*</form>*/}
         </>
     );
 }

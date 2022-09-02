@@ -14,7 +14,7 @@
   .btn-login {
     padding: 9px 25px;
     border-radius: 30px;
-    border: 2px solid var(--secondary);
+    border: 3px solid var(--secondary);
     background: transparent;
     color: var(--secondary);
     font-weight: bold;
@@ -24,7 +24,7 @@
 
     &:hover {
       color: #ffffff;
-      border: 2px solid var(--primary);
+      border: 3px solid var(--primary);
       background: var(--primary);
       transition: all 0.2s ease-out;
       font-weight: bold;

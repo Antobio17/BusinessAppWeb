@@ -14,6 +14,7 @@ import Footer from './common/Footer';
 import {isLoggedIn as isLoggedInFunct} from "./services/login";
 
 import './App.css';
+import SignupPage from "./login/SignupPage";
 
 export const webDomain = (window.location.hostname).replace('www.', '');
 export const webServiceURL = process.env.REACT_APP_BUSINESS_APP_WS_URL;
@@ -44,6 +45,7 @@ function App() {
                         <Route exact path="/citas" element={<AppointmentPage/>}/>
                         <Route exact path="/perfil" element={<ProfilePage/>}/>
                         <Route exact path="/login" element={<LoginPage/>}/>
+                        <Route exact path="/signup" element={<SignupPage/>}/>
                     </Routes>
                 </Router>
             </AnimatePresence>
