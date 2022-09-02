@@ -1,0 +1,83 @@
+.signup {
+  padding: 5rem 3rem;
+
+  .signup-intro {
+    margin-bottom: 4rem;
+    text-align: center;
+
+    h1 {
+      font-family: 'Raleway-Black', Helvetica, monospace;
+    }
+
+    p {
+      font-size: 17px;
+    }
+  }
+
+  .alert {
+    width: 850px;
+    margin: auto;
+  }
+
+  .profile-data-form {
+    margin: 70px auto 80px;
+    width: 850px;
+    padding: 40px;
+    position: relative;
+    text-align: center;
+    transition: 0.25s;
+    border: 1px solid #e9e9e9;
+    border-radius: 50px;
+    box-shadow: 0 0 20px #e9e9e9;
+
+    .btn-profile {
+      padding: 9px 25px;
+      border-radius: 30px;
+      border: 3px solid var(--secondary);
+      background: transparent;
+      color: var(--secondary);
+      font-weight: bold;
+      transition: all 0.2s ease-out;
+      width: 180px;
+      margin: 40px auto 0;
+
+      &:hover {
+        color: #ffffff;
+        border: 3px solid var(--primary);
+        background: var(--primary);
+        transition: all 0.2s ease-out;
+        font-weight: bold;
+      }
+
+      &:disabled,
+      &:disabled:hover {
+        color: #FFFFFF;
+        border-color: #FFFFFF;
+        background: #949494;
+        opacity: 1;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .signup {
+    .alert,
+    .profile-data-form {
+      width: 95%;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 475px) {
+  .signup {
+    .profile-data-form {
+      & input[type="text"],
+      & input[type="password"] {
+        width: 95%;
+      }
+    }
+  }
+}

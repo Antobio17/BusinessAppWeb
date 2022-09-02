@@ -12,6 +12,20 @@ export const login = (email, password) => {
     );
 }
 
+export const signup = (email, name, surname, phoneNumber, password) => {
+    const params = {
+        email: email,
+        name: name,
+        surname: surname,
+        phoneNumber: phoneNumber,
+        password: password,
+    }
+
+    return axios.post(webServiceURL + '/api/signup', params, {withCredentials: true}).then(
+        response => response.data
+    );
+}
+
 export const isLoggedIn = () => {
     return document.cookie.match(/^(.*;)?\s*jwt_hp\s*=\s*[^;]+(.*)?$/) !== null;
 };
