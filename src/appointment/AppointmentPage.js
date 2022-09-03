@@ -89,7 +89,8 @@ function AppointmentPage() {
                         {bookingMade &&
                         <Alert key={'success'} variant={'success'} onClose={() => setBookingMade(false)}
                                dismissible>
-                            <strong>Has realizado tu reserva correctamente</strong>
+                            <strong>Has realizado tu reserva con éxito.
+                                Estamos redirigiéndote a la página de Perfil...</strong>
                         </Alert>
                         }
                         <Calendar minDate={minDate} maxDate={maxDate} onClickDay={(day) => onClickDay(day)}/>
