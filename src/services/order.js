@@ -39,6 +39,21 @@ export const getUserOrders = (excludePending = false) => {
     );
 }
 
+export const notifyNewOrder = (postalAddressID, amount, productsData) => {
+    const params = {
+        postalAddressID: postalAddressID,
+        amount: amount,
+        productsData: productsData,
+    };
+    console.log(params);
+
+    return axios.post(
+        webServiceURL + '/api/store/order/create', params, {withCredentials: true}
+    ).then(
+        response => response.data
+    );
+}
+
 export const cancelPendingOrder = (orderID) => {
     const params = {
         orderID: orderID,

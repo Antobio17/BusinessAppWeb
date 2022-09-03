@@ -23,8 +23,42 @@
   padding: 0 !important;
   width: 100%;
 
-  .total-amount {
-    font-size: 20px;
+  .modal-footer {
+  justify-content: space-between;
+    .payment {
+      .btn-payment-process {
+        padding: 9px 25px;
+        border-radius: 30px;
+        border-color: var(--secondary);
+        background: transparent;
+        color: var(--secondary);
+        font-weight: bold;
+        transition: all 0.2s ease-out;
+        width: 180px;
+
+        //noinspection DuplicatedCode
+        &:hover {
+          color: #ffffff;
+          border: 1px solid var(--primary);
+          background: var(--primary);
+          transition: all 0.2s ease-out;
+          font-weight: bold;
+        }
+
+        &:disabled,
+        &:disabled:hover {
+          color: #FFFFFF;
+          border-color: #FFFFFF;
+          background: #949494;
+          opacity: 1;
+          font-weight: normal;
+        }
+      }
+    }
+
+    .total-amount {
+      font-size: 20px;
+    }
   }
 
   .modal-content {
