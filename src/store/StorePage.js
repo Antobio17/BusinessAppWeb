@@ -85,10 +85,8 @@ function StorePage() {
 
         auxCartProducts.forEach(cartProd => {
             if (cartProd.id === product.id) {
-                console.log(removeAll);
                 if (removeAll) {
                     auxCartProducts.pop();
-                    console.log(auxCartProducts);
                 } else {
                     cartProd.quantity--;
                 }
