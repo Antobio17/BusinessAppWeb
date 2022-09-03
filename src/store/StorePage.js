@@ -8,7 +8,10 @@ import Loading from '../common/components/Loading';
 import ShoppingCart from './components/ShoppingCart';
 import FiltersSection from './components/FiltersSection';
 import ProductsSection from './components/ProductsSection';
+
 import {getProductsData, getCategoriesData} from "../services/store";
+import {isLoggedIn} from "../services/login";
+import {getUserData} from "../services/user";
 
 function StorePage() {
     const limit = 9;
@@ -16,6 +19,7 @@ function StorePage() {
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState(undefined);
     const [categories, setCategories] = useState(undefined);
+    const [addresses, setAddresses] = useState(undefined);
 
     // Filtering
     const [sort, setSort] = useState('default');
@@ -91,6 +95,7 @@ function StorePage() {
             }
         });
         setCartProducts(auxCartProducts);
+        localStorage.setItem('cartProducts', JSON.stringify(auxCartProducts));
     }
 
     useEffect(() => {
@@ -111,7 +116,14 @@ function StorePage() {
             }).catch(error => console.log(error));
         }
 
-        localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+        if (isLoggedIn && addresses === undefined) {
+            Promise.all([
+                getUserData()
+            ]).then(response => {
+                const data = response.length > 0 ? response[0] : [];
+                setAddresses('postalAddresses' in data ? data.postalAddresses : undefined);
+            }).catch(error => console.log(error));
+        }
     }, [sort, onStock, outOfStock, changeCategories]);
 
     return (
@@ -123,7 +135,8 @@ function StorePage() {
                         Busca en nuestro catálogo los productos que deseas y ¡disfruta de la mayor calidad con un
                         simple click!
                     </p>
-                    <ShoppingCart cartProducts={cartProducts} addToCart={addToCart} removeFromCart={removeFromCart}/>
+                    <ShoppingCart cartProducts={cartProducts} addToCart={addToCart} removeFromCart={removeFromCart}
+                                  addresses={addresses}/>
                 </section>
                 {loading ? <Loading/> : (
                     <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
