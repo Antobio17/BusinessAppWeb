@@ -2,14 +2,15 @@ import axios from "axios";
 import {webServiceURL} from "../App";
 
 export const statusPending = 0;
-export const statusPreparing = 1;
-export const statusCancelled = 2;
-export const statusSent = 3;
-export const statusDone = 4;
+export const statusPaid = 1;
+export const statusPreparing = 2;
+export const statusCancelled = 3;
+export const statusSent = 4;
+export const statusDone = 5;
 
 export const getUserPendingOrders = () => {
     const params = {
-        status: [statusPending],
+        status: [statusPaid],
     };
 
     return axios.post(
@@ -25,7 +26,7 @@ export const getUserOrders = (excludePending = false) => {
     if (excludePending) {
         status = [statusPreparing, statusCancelled, statusSent, statusDone];
     } else {
-        status = [statusPending, statusPreparing, statusCancelled, statusSent, statusDone];
+        status = [statusPaid, statusPreparing, statusCancelled, statusSent, statusDone];
     }
 
     const params = {
@@ -45,7 +46,6 @@ export const notifyNewOrder = (postalAddressID, amount, productsData) => {
         amount: amount,
         productsData: productsData,
     };
-    console.log(params);
 
     return axios.post(
         webServiceURL + '/api/store/order/create', params, {withCredentials: true}
@@ -53,6 +53,19 @@ export const notifyNewOrder = (postalAddressID, amount, productsData) => {
         response => response.data
     );
 }
+
+export const notifyPaymentOrder = (paymentIntentID, success = true) => {
+    const params = {
+        paymentIntentID: paymentIntentID,
+        success: success,
+    };
+
+    return axios.post(
+        webServiceURL + '/api/store/order/payment', params, {withCredentials: true}
+    ).then(
+        response => response.data
+    );
+};
 
 export const cancelPendingOrder = (orderID) => {
     const params = {

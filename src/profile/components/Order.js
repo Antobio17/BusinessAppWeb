@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import {cancelPendingOrder, statusCancelled, statusDone} from '../../services/order';
+import {cancelPendingOrder, statusCancelled, statusDone, statusPaid} from '../../services/order';
 import {formatDate} from '../../services/tools';
 
 import './css/order.scss';
@@ -9,10 +9,11 @@ import './css/order.scss';
 function Order(props) {
     const statusEnum = {
         0: 'Pendiente',
-        1: 'En preparación',
-        2: 'Cancelado',
-        3: 'Enviado',
-        4: 'Recibido',
+        1: 'Pagado',
+        2: 'En preparación',
+        3: 'Cancelado',
+        4: 'Enviado',
+        5: 'Recibido',
     }
 
     const [cancelling, setCancelling] = useState(false);
@@ -22,7 +23,7 @@ function Order(props) {
     // noinspection JSUnresolvedVariable
     const date = new Date(props.order.createdAt.date);
     const amount = props.order.amount;
-    const uuid = props.order.uuid;
+    const id = props.order.id;
     const classNameStatus = status === statusCancelled ?
         'text-danger' : status === statusDone ? 'text-success' : 'text-info-custom';
 
@@ -42,13 +43,13 @@ function Order(props) {
 
     return (
         <article className="order">
-            <div className="uuid-date-container text-start">
-                <p className="fw-bold">UUID: {uuid}</p>
+            <div className="id-date-container text-start">
+                <p className="fw-bold">ID: {id}</p>
                 <p>{formatDate(date)} a las {date.getHours()}:{date.getMinutes() < 10 && '0'}{date.getMinutes()}</p>
             </div>
             <p className={classNameStatus + ' fw-bold'}>{statusEnum[status]}</p>
             <p className="fs-5 fw-bold">{amount}€</p>
-            {status === 0 && (cancelling ?
+            {status === statusPaid && (cancelling ?
                     <div className="login-loader">
                         <div className="lds-dual-ring"/>
                     </div> :
