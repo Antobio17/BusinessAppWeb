@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import {Tab, Tabs} from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';
@@ -21,7 +22,10 @@ import {getUserData} from "../services/user";
 import {getUserPendingAppointments} from "../services/appointment";
 
 function ProfilePage() {
-    const [value, setValue] = useState(0);
+    const [searchParams] = useSearchParams();
+    const [value, setValue] = useState(
+        searchParams.get('tab') !== null ? parseInt(searchParams.get('tab')) : 0
+    );
     const [loading, setLoading] = useState(true);
     const [profileData, setProfileData] = useState(undefined);
     const [pendingAppointment, setPendingAppointment] = useState(undefined);

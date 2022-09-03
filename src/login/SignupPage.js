@@ -1,10 +1,11 @@
-import {motion} from "framer-motion";
-import {pageTransition, pageVariants} from "../App";
 import React, {useState} from "react";
+import {motion} from "framer-motion";
 import Alert from "react-bootstrap/Alert";
 
+import {pageTransition, pageVariants} from "../App";
 import "./css/signup-page.scss";
 import "../common/components/css/loader-ring.scss";
+
 import {validatePhoneNumber} from "../services/tools";
 import {signup} from "../services/login";
 
@@ -48,7 +49,7 @@ function SignupPage() {
                         });
                         setTimeout(() => {
                             document.location.href = '/login';
-                        }, 2000)
+                        }, 2000);
                     } else {
                         setMessageAlert({
                             'type': 'danger',

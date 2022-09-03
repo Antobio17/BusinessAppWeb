@@ -28,6 +28,9 @@ function Hour(props) {
 
                 if (data.result) {
                     props.onBookingMade();
+                    setTimeout(() => {
+                        document.location.href = '/perfil?tab=2';
+                    }, 2000);
                 } else {
                     props.setMessageAlert({
                         'type': 'danger',
