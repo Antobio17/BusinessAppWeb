@@ -1,0 +1,35 @@
+.payment-form {
+  margin: 30px 0;
+  text-align: center;
+
+  //noinspection DuplicatedCode
+  .btn-payment-process {
+    padding: 9px 25px;
+    border-radius: 30px;
+    border-color: var(--secondary);
+    background: transparent;
+    color: var(--secondary);
+    font-weight: bold;
+    transition: all 0.2s ease-out;
+    width: 180px;
+    margin: 30px 0 0;
+
+    //noinspection DuplicatedCode
+    &:hover {
+      color: #ffffff;
+      border: 1px solid var(--primary);
+      background: var(--primary);
+      transition: all 0.2s ease-out;
+      font-weight: bold;
+    }
+
+    &:disabled,
+    &:disabled:hover {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+      background: #949494;
+      opacity: 1;
+      font-weight: normal;
+    }
+  }
+}
