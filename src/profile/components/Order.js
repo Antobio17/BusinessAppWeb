@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import ClearIcon from '@material-ui/icons/Clear';
+import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 
 import {cancelPendingOrder, statusCancelled, statusDone, statusPaid} from '../../services/order';
 import {formatDate} from '../../services/tools';
 
 import './css/order.scss';
+import OrderProducts from "./OrderProducts";
 
 function Order(props) {
     const statusEnum = {
@@ -17,6 +19,7 @@ function Order(props) {
     }
 
     const [cancelling, setCancelling] = useState(false);
+    const [show, setShow] = useState(false);
 
     const orderID = props.order.id;
     const status = props.order.status;
@@ -41,25 +44,35 @@ function Order(props) {
         });
     };
 
+    const onShowProducts = () => {
+        setShow(true);
+        console.log(props.order);
+    };
+
     return (
-        <article className="order">
-            <div className="id-date-container text-start">
-                <p className="fw-bold">ID: {id}</p>
-                <p>{formatDate(date)} a las {date.getHours()}:{date.getMinutes() < 10 && '0'}{date.getMinutes()}</p>
-            </div>
-            <p className={classNameStatus + ' fw-bold'}>{statusEnum[status]}</p>
-            <p className="fs-5 fw-bold">{amount}€</p>
-            {status === statusPaid && (cancelling ?
-                    <div className="login-loader">
-                        <div className="lds-dual-ring"/>
-                    </div> :
-                    <button className="btn btn-profile custom-btn" onClick={() => {
-                        onCancelOrder()
-                    }}>
-                        Cancelar <ClearIcon/>
-                    </button>
-            )}
-        </article>
+        <>
+            <OrderProducts show={show} setShow={setShow} orderProducts={JSON.parse(props.order.data)}/>
+            <article className="order">
+                <div className="id-date-container text-start">
+                    <p className="fw-bold order-open-products" onClick={onShowProducts}>
+                        <RemoveRedEyeIcon/> ID: {id}
+                    </p>
+                    <p>{formatDate(date)} a las {date.getHours()}:{date.getMinutes() < 10 && '0'}{date.getMinutes()}</p>
+                </div>
+                <p className={classNameStatus + ' fw-bold'}>{statusEnum[status]}</p>
+                <p className="fs-5 fw-bold">{amount}€</p>
+                {status === statusPaid && (cancelling ?
+                        <div className="login-loader">
+                            <div className="lds-dual-ring"/>
+                        </div> :
+                        <button className="btn btn-profile custom-btn" onClick={() => {
+                            onCancelOrder()
+                        }}>
+                            Cancelar <ClearIcon/>
+                        </button>
+                )}
+            </article>
+        </>
     );
 }
 
