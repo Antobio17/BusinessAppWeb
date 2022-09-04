@@ -108,6 +108,10 @@
       & input[type="password"],
       & input[type="number"] {
         width: 98%;
+
+        &:focus {
+          width: 98%;
+        }
       }
     }
   }

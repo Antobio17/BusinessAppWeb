@@ -77,6 +77,10 @@
       & input[type="text"],
       & input[type="password"] {
         width: 95%;
+
+        &:focus {
+          width: 95%;
+        }
       }
     }
   }
