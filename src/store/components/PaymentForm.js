@@ -8,6 +8,7 @@ import './css/payment-form.scss';
 import {pageTransition, pageVariants} from "../../App";
 
 import {notifyPaymentOrder} from "../../services/order";
+import {localStorageKeyProducts} from "../StorePage";
 
 function PaymentForm(props) {
     const [messageAlert, setMessageAlert] = useState(undefined);
@@ -65,6 +66,7 @@ function PaymentForm(props) {
                     });
                     setPaying(false);
                 });
+                localStorage.setItem(localStorageKeyProducts, JSON.stringify([]));
             } else if ('error' in payload) {
                 setMessageAlert({'type': 'danger', 'text': payload.error.message});
                 setPaying(false);
