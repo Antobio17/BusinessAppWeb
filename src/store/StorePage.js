@@ -13,6 +13,8 @@ import {getProductsData, getCategoriesData} from "../services/store";
 import {isLoggedIn} from "../services/login";
 import {getUserData} from "../services/user";
 
+export const localStorageKeyProducts = 'cartProducts';
+
 function StorePage() {
     const limit = 9;
 
@@ -34,8 +36,8 @@ function StorePage() {
     const displayItems = products !== undefined ? products.slice(offset, offset + limit) : undefined;
 
     //Shopping cart
-    const [cartProducts, setCartProducts] = useState(localStorage.getItem('cartProducts') ?
-        JSON.parse(localStorage.getItem('cartProducts')) : []);
+    const [cartProducts, setCartProducts] = useState(localStorage.getItem(localStorageKeyProducts) ?
+        JSON.parse(localStorage.getItem(localStorageKeyProducts)) : []);
 
     const onChangePage = ({selected}) => {
         setPage(selected);
@@ -79,6 +81,7 @@ function StorePage() {
         }
 
         setCartProducts(auxCartProducts);
+        localStorage.setItem(localStorageKeyProducts, JSON.stringify(auxCartProducts));
     }
     const removeFromCart = (product, removeAll) => {
         const auxCartProducts = cartProducts.slice();
@@ -93,7 +96,7 @@ function StorePage() {
             }
         });
         setCartProducts(auxCartProducts);
-        localStorage.setItem('cartProducts', JSON.stringify(auxCartProducts));
+        localStorage.setItem(localStorageKeyProducts, JSON.stringify(auxCartProducts));
     }
 
     useEffect(() => {
