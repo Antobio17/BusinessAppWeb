@@ -44,12 +44,15 @@ function SignupPage() {
                     if (data.code === 201) {
                         setMessageAlert({
                             'type': 'success',
-                            'text': '¡Te has registrado correctamente! Estamos redirigiéndote a la página de ' +
-                                'Inicio de Sesión...'
+                            'text': '¡Te has registrado correctamente! Revisa tu bandeja de entrada para validar ' +
+                                'el usuario y poder iniciar sesión.'
                         });
-                        setTimeout(() => {
-                            document.location.href = '/login';
-                        }, 2000);
+                        setEmail('');
+                        setName('');
+                        setPhoneNumber('');
+                        setSurname('');
+                        setPassword('');
+                        setPasswordCompare('');
                     } else {
                         setMessageAlert({
                             'type': 'danger',
