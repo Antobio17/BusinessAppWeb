@@ -67,11 +67,11 @@
   }
 
   .signup-href {
-    color: #222222;
+    color: var(--primary);
     transition-duration: 0.3s;
 
     &:hover {
-      color: #222222;
+      color: var(--primary);
       text-decoration: none;
       text-shadow: -0.1px -0.1px 0 #FFFFFF,
       0 -0.1px 0 #FFFFFF,

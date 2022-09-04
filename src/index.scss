@@ -61,11 +61,17 @@ input {
   font-weight: bold;
 }
 
-input:-webkit-autofill{
+input:-webkit-autofill {
   -webkit-text-fill-color: #222222;
   -webkit-box-shadow: 0 0 0 1000px #eaeaea inset;
 }
 
 .text-info-custom {
   color: var(--primary) !important;
+}
+
+html,
+body,
+#root {
+  height: 100%;
 }
