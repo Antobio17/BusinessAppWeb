@@ -109,7 +109,7 @@ function OrderTabPanel() {
                         }
                     </section>
                     <section className="order-list text-center">
-                        <h5>Historial de citas</h5>
+                        <h5>Historial de pedidos</h5>
                         {orders === undefined || orders.length === 0 ?
                             <h6 className="fw-bold text-center m-3">
                                 Tu historial de pedidos está vacío.

@@ -4,6 +4,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Select from 'react-select';
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
+import Alert from "react-bootstrap/Alert";
 
 import "./css/shopping-cart.scss";
 
@@ -11,6 +12,7 @@ import CartProduct from "./CartProduct";
 
 import {notifyNewOrder, notifyPaymentOrder} from "../../services/order";
 import PaymentForm from "./PaymentForm";
+import {Link} from "react-router-dom";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -97,13 +99,22 @@ function ShoppingCart(props) {
                         </div>
                     }
                     {props.addresses !== undefined &&
-                    <div className="mt-3 mb-3">
-                        <Select options={getOptionAddresses()} placeholder={'Seleccione una dirección...'}
-                                onChange={(e) => {
-                                    setPostalAddressID(e.value)
-                                }}
-                                isDisabled={order !== undefined}/>
-                    </div>
+                    <>
+                        <div className="mt-3 mb-3">
+                            <Select options={getOptionAddresses()} placeholder={'Seleccione una dirección...'}
+                                    onChange={(e) => {
+                                        setPostalAddressID(e.value)
+                                    }}
+                                    isDisabled={order !== undefined}/>
+                        </div>
+                        {Object.keys(props.addresses).length === 0 &&
+                            <Alert key="warning" variant="warning">
+                                <Link to="/perfil?tab=1" className="link-create-postal-address">
+                                    No tienes ninguna dirección creada. Pulsa aquí para añadir una a tu perfil.
+                                </Link>
+                            </Alert>
+                        }
+                    </>
                     }
                     {order !== undefined &&
                     <div className="mt-3 mb-3">

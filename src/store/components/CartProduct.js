@@ -22,9 +22,7 @@ function CartProduct(props) {
                 </div>
                 <div className="col-6 m-auto text-end cart-product-actions">
                     <button onClick={() => props.addToCart(props.product)}><AddIcon/></button>
-                    {canDelete &&
-                    <button onClick={() => props.removeFromCart(props.product, false)}><RemoveIcon/></button>
-                    }
+                    <button onClick={() => props.removeFromCart(props.product, false)} disabled={!canDelete}><RemoveIcon/></button>
                     <button onClick={() => props.removeFromCart(props.product, true)}><DeleteIcon/></button>
                 </div>
             </div>

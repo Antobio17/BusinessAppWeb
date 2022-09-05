@@ -74,10 +74,10 @@ function ProfilePage() {
                                 transition={pageTransition}>
                         <Tabs value={value} onChange={onChange} variant="scrollable" scrollButtons="auto"
                               aria-label="scrollable auto tabs example">
-                            <Tab label={<PersonIcon/>}/>
-                            <Tab label={<HomeIcon/>}/>
-                            <Tab label={<DateRangeIcon/>}/>
-                            <Tab label={<ShoppingCartIcon/>}/>
+                            <Tab label={<><PersonIcon/><b>Datos</b></>}/>
+                            <Tab label={<><HomeIcon/><b>Direcciones</b></>}/>
+                            <Tab label={<><DateRangeIcon/><b>Citas</b></>}/>
+                            <Tab label={<><ShoppingCartIcon/><b>Pedidos</b></>}/>
                         </Tabs>
                         <TabPanel value={value} index={0}><ProfileTabPanel profileData={profileData}/></TabPanel>
                         <TabPanel value={value} index={1}>
