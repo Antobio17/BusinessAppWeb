@@ -5,6 +5,7 @@ import Select from 'react-select';
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
 import Alert from "react-bootstrap/Alert";
+import Pulse from "react-reveal/Pulse";
 
 import "./css/shopping-cart.scss";
 
@@ -71,10 +72,23 @@ function ShoppingCart(props) {
         }
     };
 
+    const countCartItems = () => {
+        let count = 0;
+
+        props.cartProducts.forEach(cartItem => {
+            count += cartItem.quantity;
+        });
+
+        return count;
+    }
+
     return (
         <>
             <div className="shopping-cart-button">
                 <button onClick={() => setShow(true)} className="custom-btn">
+                    <Pulse spy={countCartItems()}>
+                        <span className="shopping-cart-button-count rounded-circle">{countCartItems()}</span>
+                    </Pulse>
                     <ShoppingCartIcon/> Ver carrito
                 </button>
             </div>

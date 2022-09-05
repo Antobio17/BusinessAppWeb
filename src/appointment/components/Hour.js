@@ -14,12 +14,14 @@ function Hour(props) {
         const bookingDateAt = day.setHours(splitHour[0], splitHour[1], splitHour[2]) / 1000;
 
         setBooking(true);
+        props.setIsBooking(true);
         if (props.isWorker && !validatePhoneNumber(props.phoneNumber)) {
             props.setMessageAlert({
                 'type': 'danger',
                 'text': 'El teléfono no tiene un formato válido.',
             });
             setBooking(false);
+            props.setIsBooking(false);
         } else {
             Promise.all([
                 bookUserAppointment(bookingDateAt, props.phoneNumber.length > 0 ? props.phoneNumber : null)
@@ -38,6 +40,7 @@ function Hour(props) {
                     });
                 }
                 setBooking(false);
+                props.setIsBooking(false);
             }).catch(error => {
                 console.log('Error al recuperar al realizar la reserva de la cita: ' + error);
                 props.setMessageAlert({
@@ -45,6 +48,7 @@ function Hour(props) {
                     'text': 'Ha ocurrido un error al intentar reservar la cita.',
                 });
                 setBooking(false);
+                props.setIsBooking(false);
             });
         }
     };
@@ -57,7 +61,7 @@ function Hour(props) {
                         <div className="login-loader">
                             <div className="lds-dual-ring"/>
                         </div> :
-                        <button className="btn btn-appointment custom-btn col-6 fw-bold"
+                        <button className="btn btn-appointment custom-btn col-6 fw-bold" disabled={props.isBooking}
                                 onClick={() => bookAppointment()}>
                             Reservar
                         </button>

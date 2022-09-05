@@ -6,11 +6,29 @@
     margin: auto;
     color: #222222;
     border-color: #222222;
+    height: 55px;
 
     &:hover {
       color: white;
       border-color: white;
+
+      .shopping-cart-button-count {
+        background: #ffffff;
+        color: var(--primary);
+        font-weight: bold;
+        border: none;
+      }
     }
+  }
+
+  .shopping-cart-button-count {
+    background: #1c1f24;
+    color: #f1f1f1;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 3px 8px 4px;
+    margin-left: -5px;
+    margin-right: 15px;
   }
 }
 

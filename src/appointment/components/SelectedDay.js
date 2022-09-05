@@ -22,6 +22,7 @@ function SelectedDay(props) {
     const [loading, setLoading] = useState(true);
     const [pendingAppointments, setPendingAppointments] = useState([]);
     const [messageAlert, setMessageAlert] = useState(undefined);
+    const [isBooking, setIsBooking] = useState(false);
 
     const [phoneNumber, setPhoneNumber] = useState('');
 
@@ -38,7 +39,7 @@ function SelectedDay(props) {
                               available={countAppearances(pendingAppointments, hour) < props.numWorkers}
                               hasPendingAppointment={props.hasPendingAppointment && !props.isWorker}
                               isWorker={props.isWorker} phoneNumber={phoneNumber}
-                              setMessageAlert={setMessageAlert}/>
+                              setMessageAlert={setMessageAlert} isBooking={isBooking} setIsBooking={setIsBooking}/>
                     );
                     hour = incrementHour(hour, appointmentDuration);
                 } while (isGreaterThan(closesAt, hour));

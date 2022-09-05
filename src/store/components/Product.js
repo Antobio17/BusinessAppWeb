@@ -14,7 +14,7 @@ function Product(props) {
             <p><span className="name">{name}</span></p>
             <p><span className="amount">{amount}€</span></p>
             {stock > 0 ?
-                <button className="btn btn-add-to-cart custom-btn" onClick={() => {props.addToCart(props.product)}}>
+                <button className="btn btn-add-to-cart custom-btn pulse-single" onClick={() => {props.addToCart(props.product)}}>
                     Añadir al carrito
                 </button> :
                 <p className="out-of-stock text-muted">SIN STOCK</p>
