@@ -117,7 +117,7 @@ function StorePage() {
             }).catch(error => console.log(error));
         }
 
-        if (isLoggedIn && addresses === undefined) {
+        if (isLoggedIn() && addresses === undefined) {
             Promise.all([
                 getUserData()
             ]).then(response => {

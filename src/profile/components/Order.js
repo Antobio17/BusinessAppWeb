@@ -15,7 +15,7 @@ function Order(props) {
         2: 'En preparación',
         3: 'Cancelado',
         4: 'Enviado',
-        5: 'Recibido',
+        5: 'Entregado',
     }
 
     const [cancelling, setCancelling] = useState(false);

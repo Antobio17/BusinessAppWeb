@@ -112,7 +112,7 @@ function OrderTabPanel() {
                         <h5>Historial de citas</h5>
                         {orders === undefined || orders.length === 0 ?
                             <h6 className="fw-bold text-center m-3">
-                                Aún no has realizado ningún pedido.
+                                Tu historial de pedidos está vacío.
                             </h6> :
                             <>
                                 {renderOrders(displayItems)}

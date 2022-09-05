@@ -100,9 +100,10 @@ function AppointmentTabPanel(props) {
                 {loading ? <Loading/> : (
                     <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}
                                 transition={pageTransition}>
-                        {appointments === undefined || appointments.length === 0 ?
+                        {appointments === undefined || appointments.length === 0 ||
+                        (appointments.length === 1 && appointments[0].status === 0) ?
                             <h6 className="fw-bold text-center m-3">
-                                Aún no has reservado ninguna cita.
+                                Tu historial de citas está vacío.
                             </h6> :
                             <>
                                 {renderAppointments()}
