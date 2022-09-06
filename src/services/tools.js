@@ -35,11 +35,11 @@ export const formatDay = (day) => {
  */
 export const incrementHour = (hour, minutsIncrement) => {
     const splitHour = hour.split(':');
-    const incrementHours = Math.floor(minutsIncrement) / 60;
+    const incrementHours = Math.floor(minutsIncrement / 60);
     const incrementsMinuts = minutsIncrement % 60;
 
     let minuts = parseInt(splitHour[1]) + incrementsMinuts;
-    let restHour = minuts / 60;
+    let restHour = Math.floor(minuts / 60);
     let restMinut = minuts % 60;
 
     restMinut = restMinut > 9 ? restMinut : '0' + restMinut;
