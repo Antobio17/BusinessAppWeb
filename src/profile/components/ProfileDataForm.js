@@ -4,7 +4,7 @@ function ProfileDataForm(props) {
     return (
         <form onSubmit={(e) => props.submitForm(e)} className="profile-data-form row">
             <div className="col-12 col-md-6">
-                <input type="text" name="email" placeholder="Email..." value={props.email}
+                <input type="email" name="email" placeholder="Email..." value={props.email}
                        onChange={(e) => props.setEmail(e.target.value)} required/>
                 <input type="password" name="password" placeholder="Contraseña..."
                        onChange={(e) => props.setPassword(e.target.value)}/>

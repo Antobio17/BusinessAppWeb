@@ -41,6 +41,7 @@
   }
 
   & input[type="text"],
+  & input[type="email"],
   & input[type="password"] {
     background: none;
     display: block;
@@ -94,6 +95,7 @@
 @media only screen and (max-width: 650px) {
   .login-form {
     & input[type="text"],
+    & input[type="email"],
     & input[type="password"] {
       width: 95%;
 
